@@ -1,6 +1,6 @@
 package me.constantindev.ccl.events;
 
-import meteordevelopment.orbit.ICancellable;
+import me.constantindev.ccl.events.ICancellable;
 
 public class Cancellable implements ICancellable {
     private boolean cancelled = false;

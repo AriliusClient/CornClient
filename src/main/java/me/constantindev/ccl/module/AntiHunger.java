@@ -6,7 +6,7 @@ import me.constantindev.ccl.etc.config.Toggleable;
 import me.constantindev.ccl.events.PacketEvent;
 import me.constantindev.ccl.events.TickEvent;
 import me.constantindev.ccl.mixin.PlayerMoveC2SPacketAccessor;
-import meteordevelopment.orbit.EventHandler;
+import me.constantindev.ccl.events.EventHandler;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
