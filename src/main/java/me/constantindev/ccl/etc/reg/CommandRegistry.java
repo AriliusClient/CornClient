@@ -18,7 +18,6 @@ public class CommandRegistry {
         cl.add(new Dupe());
         cl.add(new Crash());
         cl.add(new Keybind());
-        cl.add(new Clip());
     }
 
     public static List<Command> getAll() {

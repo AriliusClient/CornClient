@@ -12,8 +12,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class ModuleRegistry {
     private static final List<Module> ml = new ArrayList<>();
 
-    public static void init() {
-        ml.add(new AntiHunger()); // lemme disable this while i test the event bus
+    public static void init() {; // lemme disable this while i test the event bus
         ml.add(new Flight());
         ml.add(new NoFall());
         ml.add(new FullBright());
@@ -33,7 +32,6 @@ public class ModuleRegistry {
         ml.add(new BuildLimit());
         ml.add(new MidAirPlace());
         ml.add(new XRAY());
-        ml.add(new AntiOffhandCrash());
         ml.add(new ClickGUI());
         ml.add(new Chat());
         ml.add(new FullBright());
