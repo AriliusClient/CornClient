@@ -7,10 +7,6 @@ import me.constantindev.ccl.etc.event.EventHelper;
 import me.constantindev.ccl.etc.event.EventType;
 import me.constantindev.ccl.etc.event.arg.PacketEvent;
 import me.constantindev.ccl.mixin.PlayerMoveC2SPacketAccessor;
-<<<<<<< HEAD
-=======
-import me.constantindev.ccl.events.EventHandler;
->>>>>>> 51e240d (stuff)
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
