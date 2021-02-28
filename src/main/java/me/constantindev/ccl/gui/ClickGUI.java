@@ -25,6 +25,8 @@ public class ClickGUI extends MinecraftGUI {
     private final Theme theme;
     private final com.lukflug.panelstudio.ClickGUI gui;
 
+    public MinecraftClient mc = MinecraftClient.getInstance();
+    
     public ClickGUI() {
         guiInterface = new GUIInterface(true) {
             @Override
@@ -35,18 +37,18 @@ public class ClickGUI extends MinecraftGUI {
             @Override
             public void drawString(Point pos, String s, Color c) {
                 end();
-                MinecraftClient.getInstance().textRenderer.draw(new MatrixStack(), s, pos.x, pos.y, c.getRGB());
+                mc.textRenderer.draw(new MatrixStack(), s, pos.x, pos.y, c.getRGB());
                 begin();
             }
 
             @Override
             public int getFontWidth(String s) {
-                return MinecraftClient.getInstance().textRenderer.getWidth(s);
+                return mc.textRenderer.getWidth(s);
             }
 
             @Override
             public int getFontHeight() {
-                return MinecraftClient.getInstance().textRenderer.fontHeight;
+                return mc.textRenderer.fontHeight;
             }
         };
         theme = new GameSenseTheme(new ColorScheme() {
@@ -79,26 +81,26 @@ public class ClickGUI extends MinecraftGUI {
             public int getOpacity() {
                 return 150;
             }
-        }, MinecraftClient.getInstance().textRenderer.fontHeight, 4, 2);
+        }, mc.textRenderer.fontHeight, 4, 2);
         gui = new com.lukflug.panelstudio.ClickGUI(guiInterface, context -> {
-            //int width = MinecraftClient.getInstance().textRenderer.getWidth(context.getDescription());
-            int height = MinecraftClient.getInstance().textRenderer.fontHeight;
-            int wH = MinecraftClient.getInstance().getWindow().getScaledHeight();
-            //int wW = MinecraftClient.getInstance().getWindow().getScaledWidth();
-            MinecraftClient.getInstance().textRenderer.draw(new MatrixStack(), context.getDescription(), 1, wH - height - 1, 0xFFFFFFFF);
+            //int width = mc.textRenderer.getWidth(context.getDescription());
+            int height = mc.textRenderer.fontHeight;
+            int wH = mc.getWindow().getScaledHeight();
+            //int wW = mc.getWindow().getScaledWidth();
+            mc.textRenderer.draw(new MatrixStack(), context.getDescription(), 1, wH - height - 1, 0xFFFFFFFF);
         });
         for (MType type : MType.ALL) {
-            int maxW = MinecraftClient.getInstance().textRenderer.getWidth("antioffhandcrash");
+            int maxW = mc.textRenderer.getWidth("antioffhandcrash");
             for (Module m : ModuleRegistry.getAll()) {
                 if (m.type != type) continue;
-                maxW = Math.max(maxW, MinecraftClient.getInstance().textRenderer.getWidth(m.name));
+                maxW = Math.max(maxW, mc.textRenderer.getWidth(m.name));
             }
-            com.lukflug.panelstudio.DraggableContainer container = new DraggableContainer(" " + type.toString(), null, theme.getContainerRenderer(), new SimpleToggleable(false), new SettingsAnimation(ClientConfig.animSpeed), null, new Point(50, 50), maxW + (MinecraftClient.getInstance().textRenderer.getWidth(" ") * 2));
+            com.lukflug.panelstudio.DraggableContainer container = new DraggableContainer(" " + type.toString(), null, theme.getContainerRenderer(), new SimpleToggleable(false), new SettingsAnimation(ClientConfig.animSpeed), null, new Point(50, 50), maxW + (mc.textRenderer.getWidth(" ") * 2));
 
             gui.addComponent(container);
             for (Module m : ModuleRegistry.getAll()) {
                 if (m.type != type) continue;
-                maxW = Math.max(maxW, MinecraftClient.getInstance().textRenderer.getWidth(m.name));
+                maxW = Math.max(maxW, mc.textRenderer.getWidth(m.name));
                 CollapsibleContainer mc = new CollapsibleContainer(" " + m.name, m.description, theme.getContainerRenderer(), new SimpleToggleable(false), new SettingsAnimation(ClientConfig.animSpeed), m.isOn);
                 container.addComponent(mc);
                 for (ModuleConfig.ConfigKey kc : m.mconf.config) {
