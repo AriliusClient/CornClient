@@ -25,23 +25,24 @@ public class Nuker extends Module {
         current++;
         if (current > 2) current = 0;
         else return;
-        assert MinecraftClient.getInstance().player != null;
-        BlockPos original = MinecraftClient.getInstance().player.getBlockPos();
+        MinecraftClient mc = MinecraftClient.getInstance();
+        assert mc.player != null;
+        BlockPos original = mc.player.getBlockPos();
         for (int x = -range; x < range + 1; x++) {
             for (int y = -range; y < range + 1; y++) {
                 for (int z = -range; z < range + 1; z++) {
                     BlockPos bp2 = original.add(x, y, z);
                     if (bp2.equals(original.down())) continue;
-                    BlockState bstate = MinecraftClient.getInstance().player.world.getBlockState(bp2);
+                    BlockState bstate = mc.player.world.getBlockState(bp2);
                     if (bstate.getBlock().getName().asString().equalsIgnoreCase("air")) continue;
-                    Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, bp2, Direction.UP));
-                    MinecraftClient.getInstance().getNetworkHandler().sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, bp2, Direction.UP));
+                    Objects.requireNonNull(mc.getNetworkHandler()).sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, bp2, Direction.UP));
+                    mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, bp2, Direction.UP));
 
                 }
             }
         }
-        Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, original.down(), Direction.UP));
-        MinecraftClient.getInstance().getNetworkHandler().sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, original.down(), Direction.UP));
+        Objects.requireNonNull(mc.getNetworkHandler()).sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, original.down(), Direction.UP));
+        mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, original.down(), Direction.UP));
         super.onExecute();
     }
 }

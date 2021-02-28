@@ -8,15 +8,15 @@ public class Suicide extends Module {
     public Suicide() {
         super("Suicide", "You know what this does", MType.EXPLOIT);
     }
-
+    public MinecraftClient mc = MinecraftClient.getInstance();
     @Override
     public void onExecute() {
         new Thread(() -> {
             try {
-                assert MinecraftClient.getInstance().player != null;
-                MinecraftClient.getInstance().player.setVelocity(0, 5, 0);
+                assert mc.player != null;
+                mc.player.setVelocity(0, 5, 0);
                 Thread.sleep(500);
-                MinecraftClient.getInstance().player.setVelocity(0, -10, 0);
+                mc.player.setVelocity(0, -10, 0);
             } catch (Exception ignored) {
             }
         }).start();

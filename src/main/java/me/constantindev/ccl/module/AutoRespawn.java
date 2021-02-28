@@ -12,10 +12,11 @@ public class AutoRespawn extends Module {
         super("AutoRespawn", "Automatically respawns you upon death", MType.MISC);
     }
 
+    public MinecraftClient mc = MinecraftClient.getInstance();
     @Override
     public void onExecute() {
         assert MinecraftClient.getInstance().player != null;
-        if (MinecraftClient.getInstance().player.isDead()) {
+        if (mc.player.isDead()) {
             Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).sendPacket(new ClientStatusC2SPacket(ClientStatusC2SPacket.Mode.PERFORM_RESPAWN));
         }
         super.onExecute();

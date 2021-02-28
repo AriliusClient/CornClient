@@ -16,7 +16,7 @@ public class Help extends Command {
     public Help() {
         super("Help", "Shows all commands and modules", new String[]{"h", "help", "man", "?", "commands", "modules"});
     }
-
+    public MinecraftClient mc = MinecraftClient.getInstance();
     @Override
     public void onExecute(String[] args) {
         if (args.length == 0) {
@@ -33,8 +33,8 @@ public class Help extends Command {
                         Style bonk = Text.of("").getStyle().withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.of("Triggers: " + String.join(", ", command.triggers))));
                         LiteralText bruh1 = new net.minecraft.text.LiteralText(Formatting.DARK_AQUA + "[ " + Formatting.AQUA + Cornos.MOD_ID.toUpperCase() + Formatting.DARK_AQUA + " ]   " + Formatting.RESET + Formatting.AQUA + "  " + command.displayName + " (" + command.triggers[0] + ")" + ": " + Formatting.BLUE + command.description);
                         bruh1.setStyle(bonk);
-                        assert MinecraftClient.getInstance().player != null;
-                        MinecraftClient.getInstance().player.sendMessage(bruh1, false);
+                        assert mc.player != null;
+                        mc.player.sendMessage(bruh1, false);
                     });
                     break;
                 default:

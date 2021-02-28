@@ -8,11 +8,11 @@ public class MoonGravity extends Module {
     public MoonGravity() {
         super("MoonGravity", "Makes you go weee", MType.MOVEMENT);
     }
-
+    public MinecraftClient mc = MinecraftClient.getInstance();
     @Override
     public void onExecute() {
-        assert MinecraftClient.getInstance().player != null;
-        MinecraftClient.getInstance().player.addVelocity(0, 0.0568000030517578, 0); // Yes, this was precisely calculated.
+        assert mc.player != null;
+        mc.player.addVelocity(0, 0.0568000030517578, 0); // Yes, this was precisely calculated.
         super.onExecute();
     }
 }

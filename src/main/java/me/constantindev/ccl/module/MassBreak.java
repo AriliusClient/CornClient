@@ -18,31 +18,31 @@ public class MassBreak extends Module {
         super("MassBreak", "Breaks a lot if you break a block", MType.WORLD);
         this.mconf.add(new Num("radius", 3.0, 10, 0));
     }
-
+    public MinecraftClient mc = MinecraftClient.getInstance();
     @Override
     public void onExecute() {
         int rad = (int) ((Num) this.mconf.getByName("radius")).getValue();
         BlockPos latest;
         try {
-            assert MinecraftClient.getInstance().crosshairTarget != null;
-            latest = ((BlockHitResult) MinecraftClient.getInstance().crosshairTarget).getBlockPos();
+            assert mc.crosshairTarget != null;
+            latest = ((BlockHitResult) mc.crosshairTarget).getBlockPos();
         } catch (Exception ignored) {
             return;
         }
-        if (MinecraftClient.getInstance().options.keyAttack.isPressed()) {
+        if (mc.options.keyAttack.isPressed()) {
             Cornos.log(Level.INFO, "bruh");
             for (int x = 0; x < rad; x++) {
                 for (int y = 0; y < rad; y++) {
                     for (int z = 0; z < rad; z++) {
                         BlockPos c = latest.add(x - (rad / 2), y - (rad / 2), z - (rad / 2));
                         if (c.equals(latest)) continue;
-                        Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, c, Direction.UP));
-                        MinecraftClient.getInstance().getNetworkHandler().sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, c, Direction.UP));
+                        Objects.requireNonNull(mc.getNetworkHandler()).sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, c, Direction.UP));
+                        mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, c, Direction.UP));
                     }
                 }
             }
-            Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, latest, Direction.UP));
-            MinecraftClient.getInstance().getNetworkHandler().sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, latest, Direction.UP));
+            Objects.requireNonNull(mc.getNetworkHandler()).sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, latest, Direction.UP));
+            mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, latest, Direction.UP));
         }
         super.onExecute();
     }

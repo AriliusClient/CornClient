@@ -13,16 +13,16 @@ public class AutoTool extends Module {
     public AutoTool() {
         super("AutoTool", "Automatically picks the fastest tool out of your hotbar", MType.WORLD);
     }
-
+    public MinecraftClient mc = MinecraftClient.getInstance();
     @Override
     public void onExecute() {
-        if (MinecraftClient.getInstance().options.keyAttack.isPressed()) {
-            if (!(MinecraftClient.getInstance().crosshairTarget instanceof BlockHitResult)) return;
-            BlockHitResult r = ((BlockHitResult) MinecraftClient.getInstance().crosshairTarget);
+        if (mc.options.keyAttack.isPressed()) {
+            if (!(mc.crosshairTarget instanceof BlockHitResult)) return;
+            BlockHitResult r = ((BlockHitResult) mc.crosshairTarget);
             BlockPos b = r.getBlockPos();
             assert MinecraftClient.getInstance().player != null;
-            BlockState bstate = MinecraftClient.getInstance().player.world.getBlockState(b);
-            PlayerInventory pinv = MinecraftClient.getInstance().player.inventory;
+            BlockState bstate = mc.player.world.getBlockState(b);
+            PlayerInventory pinv = mc.player.inventory;
             float best = 1f;
             int bs1 = -1;
             for (int i = 0; i < 9; i++) {

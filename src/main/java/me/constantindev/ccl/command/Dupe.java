@@ -11,22 +11,22 @@ public class Dupe extends Command {
     public Dupe() {
         super("Dupe", "Duplicates the item you are holding", new String[]{"dupe", "d", "duplicate"});
     }
-
+    public MinecraftClient mc = MinecraftClient.getInstance();
     @Override
     public void onExecute(String[] args) {
         if (args.length == 0) {
             ClientHelper.sendChat("Available modes: popbob, 11/11");
             return;
         }
-        if (MinecraftClient.getInstance().player == null) return;
+        if (mc.player == null) return;
         switch (args[0]) {
             case "popbob":
                 new Thread(() -> {
                     for (int i = 0; i < ((9 * 4) - 1); i++) {
 
-                        MinecraftClient.getInstance().player.inventory.setStack(i, MinecraftClient.getInstance().player.inventory.getMainHandStack());
+                        mc.player.inventory.setStack(i, mc.player.inventory.getMainHandStack());
                         for (int ii = 0; ii < 64; ii++) {
-                            MinecraftClient.getInstance().player.inventory.getStack(i).setCount(ii);
+                            mc.player.inventory.getStack(i).setCount(ii);
                             try {
                                 Thread.sleep(10);
                             } catch (InterruptedException e) {
@@ -37,9 +37,9 @@ public class Dupe extends Command {
                 }).start();
                 break;
             case "11/11":
-                assert MinecraftClient.getInstance().player != null;
-                MinecraftClient.getInstance().player.dropSelectedItem(true);
-                Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).getConnection().disconnect(Text.of("bruh"));
+                assert mc.player != null;
+                mc.player.dropSelectedItem(true);
+                Objects.requireNonNull(mc.getNetworkHandler()).getConnection().disconnect(Text.of("bruh"));
         }
         super.onExecute(args);
     }

@@ -14,10 +14,11 @@ public class PumpkinOverlayReplacement {
     @Inject(method = "renderPumpkinOverlay", at = @At("HEAD"), cancellable = true)
     public void renderPumpkinOverlayReplacement(CallbackInfo ci) {
         if (ModuleRegistry.getByName("nopumpkin").isOn.isOn()) {
+        	MinecraftClient mc = MinecraftClient.getInstance();
             ci.cancel();
             MatrixStack defaultM = new MatrixStack();
-            int w2d = MinecraftClient.getInstance().getWindow().getScaledWidth() / 2;
-            MinecraftClient.getInstance().textRenderer.draw(defaultM, "You are wearing a pumpkin", w2d - ((float) MinecraftClient.getInstance().textRenderer.getWidth("You are wearing a pumpkin") / 2), 50, 0xFFFFFFFF);
+            int w2d = mc.getWindow().getScaledWidth() / 2;
+            mc.textRenderer.draw(defaultM, "You are wearing a pumpkin", w2d - ((float) mc.textRenderer.getWidth("You are wearing a pumpkin") / 2), 50, 0xFFFFFFFF);
         }
     }
 }

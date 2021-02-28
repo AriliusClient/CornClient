@@ -19,14 +19,14 @@ public class Clip extends Command {
     public Clip() {
         super("Clip", "Basically teleporting but cool", new String[]{"clip", "cl", "tp"});
     }
-
+    public MinecraftClient mc = MinecraftClient.getInstance();
     @Override
     public void onExecute(String[] args) {
         if (args.length == 0) {
             ClientHelper.sendChat("i need some arguments like \"v\" or \"h\" ygm");
             return;
         }
-        Vec3d p = MinecraftClient.getInstance().player.getPos();
+        Vec3d p = mc.player.getPos();
         Vec3d np = p;
         switch (args[0].toLowerCase()) {
             case "v":
@@ -63,7 +63,7 @@ public class Clip extends Command {
                 ClientHelper.sendChat("run the command w/o arguments and follow the instructions please");
                 return;
         }
-        MinecraftClient.getInstance().player.updatePosition(np.x, np.y, np.z);
+        mc.player.updatePosition(np.x, np.y, np.z);
         super.onExecute(args);
     }
 }

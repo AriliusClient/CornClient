@@ -25,7 +25,7 @@ public class IngameRendererHook {
     List<Integer> lastValues = new ArrayList<>();
     @Shadow
     private int scaledWidth;
-
+    public MinecraftClient mc = MinecraftClient.getInstance();
     @Inject(method = "render", at = @At("RETURN"))
     public void render(MatrixStack matrices, float tickDelta, CallbackInfo ci) throws InvalidStateException {
         rgbSeed++;
@@ -65,7 +65,7 @@ public class IngameRendererHook {
             ml.forEach(module -> {
                 if (module.isOn.isOn()) mlR.add(module);
             });
-            mlR.sort(Comparator.comparingInt(o -> MinecraftClient.getInstance().textRenderer.getWidth(o.name)));
+            mlR.sort(Comparator.comparingInt(o -> mc.textRenderer.getWidth(o.name)));
             List<Module> mlR1 = Lists.reverse(mlR);
             if (lastValues.size() > mlR1.size()) {
                 lastValues.subList(0, 1).clear();
@@ -78,7 +78,7 @@ public class IngameRendererHook {
                 } catch (Exception ignored) {
                     colorToUse = rgb;
                 }
-                MinecraftClient.getInstance().textRenderer.draw(matrices, module.name, scaledWidth - MinecraftClient.getInstance().textRenderer.getWidth(module.name) - 1, 1 + offset.getAndAdd(10), colorToUse);
+                mc.textRenderer.draw(matrices, module.name, scaledWidth - mc.textRenderer.getWidth(module.name) - 1, 1 + offset.getAndAdd(10), colorToUse);
             });
         }
     }

@@ -18,17 +18,17 @@ public class MidAirPlace extends Module {
     public MidAirPlace() {
         super("MidAirPlace", "Allows you to place blocks midair", MType.WORLD);
     }
-
+    public MinecraftClient mc = MinecraftClient.getInstance();
     @Override
     public void onExecute() {
-        HitResult hr = MinecraftClient.getInstance().crosshairTarget;
+        HitResult hr = mc.crosshairTarget;
         if (!(hr instanceof BlockHitResult)) return;
         RenderHelper.addToQueue(new RenderableBlock(((BlockHitResult) hr).getBlockPos(), 255, 50, 50, 255));
-        if (MinecraftClient.getInstance().options.keyUse.isPressed()) {
+        if (mc.options.keyUse.isPressed()) {
             timeout--;
             if (timeout != 19 && timeout > 0) return;
             PlayerInteractBlockC2SPacket p = new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, (BlockHitResult) hr);
-            Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).sendPacket(p);
+            Objects.requireNonNull(mc.getNetworkHandler()).sendPacket(p);
         } else timeout = 20;
         super.onExecute();
     }

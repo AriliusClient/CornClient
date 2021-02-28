@@ -8,16 +8,16 @@ public class XRAY extends Module {
     public XRAY() {
         super("xray", "When you just need some blocks", MType.WORLD);
     }
-
+    public MinecraftClient mc = MinecraftClient.getInstance();
     @Override
     public void onEnable() {
-        MinecraftClient.getInstance().worldRenderer.reload();
+        mc.worldRenderer.reload();
         super.onEnable();
     }
 
     @Override
     public void onDisable() {
-        MinecraftClient.getInstance().worldRenderer.reload();
+        mc.worldRenderer.reload();
         super.onDisable();
     }
     // Logic: XrayHandler.java & LuminanceHook.java
