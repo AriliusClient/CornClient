@@ -27,7 +27,7 @@ public class ModuleRegistry {
      * autofish -> working on it
      * autosign that you can change -> done
      * fancychat -> done
-     * autlog -> done
+     * autolog -> done
      * blink -> done
      * */
 
