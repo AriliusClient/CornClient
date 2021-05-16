@@ -1,11 +1,11 @@
 # Cornos
-based block game hax
+This is a `Hack Client` for a game called `Minecraft`
 
 <img src="https://img.shields.io/github/stars/AriliusClient/Cornos?color=000000&style=for-the-badge" /><br>
 
 # Support
 
-we have discor
+We have a Discord Support Server! `Join Now!`
 
 <a href="https://discord.gg/rvC7F798xQ"><img src="https://invidget.switchblade.xyz/rvC7F798xQ"/></a>
 
@@ -14,30 +14,30 @@ we have discor
 ## Easy installation
 You can use the [cornos installer](https://github.com/AriliusClient/cornos-installer/releases) to easily install this mod. If you wish to control everything yourself tho, keep reading.
 
-Since so many people ask me how to build this and cant read apparently, I will say the following
+Since so many people ask me how to build this and can't read apparently, I will say the following
 
 **YOU DO NOT NEED TO BUILD IT YOURSELF.
 READ [How to obtain the mod without building](https://github.com/AriliusClient/CornClient/wiki/How-to-obtain-the-mod-without-building%3F)
 TO DOWNLOAD A PRE-BUILT JAR**
 
-If you want to contribute or really build it yourself, [read this](https://github.com/AriliusClient/CornClient/wiki/Building-and-contributing)
+If you want to contribute or build it yourself, [read this](https://github.com/AriliusClient/CornClient/wiki/Building-and-contributing)
 
-## Installing the jarfile
+## Installing the jar file
 1. Install the [fabric loader](https://fabricmc.net/use/) 
-2. Drag the jar file and the [fabric api](https://www.curseforge.com/minecraft/mc-mods/fabric-api) to `(Minecraft folder)/mods`. If there is no `mods` folder, create one.<br>Side note: you may have selected a custom installation path for the fabric launcher profile. If that's the case, use that folder as minecraft folder.
+2. Drag the jar file and the [fabric api](https://www.curseforge.com/minecraft/mc-mods/fabric-api) to `(Minecraft folder)/mods`. If there is no `mods` folder, create one.<br>Side note: you may have selected a custom installation path for the fabric launcher profile. If that's the case, use that folder as Minecraft folder.
 3. Launch fabric using your launcher of choice.
 
 ## Building
-1. Clone this repo
+1. Clone this Repository
 2. Open the new folder in your terminal
 3. `./gradlew build`
-4. Jarfile will be in build/libs, ccl-(version).jar
+4. Jarfile will be in `build/libs`, `ccl-(version).jar`
 
 ## Prebuilds
 
-The prebuilt jarfile can be found in the `builds` folder.
+The prebuilt jar file can be found in the `builds` folder.
 
-After you obtained the jarfile, read the section above, "Installing the jarfile".
+After you obtained the jar file, read the section above, "Installing the jar file".
 
 # Modules
 
