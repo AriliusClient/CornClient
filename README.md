@@ -4,9 +4,6 @@ based block game hax
 <img src="https://img.shields.io/github/stars/AriliusClient/Cornos?color=000000&style=for-the-badge" /><br>
 
 # Support
-
-we have discor
-
 <a href="https://discord.gg/rvC7F798xQ"><img src="https://invidget.switchblade.xyz/rvC7F798xQ"/></a>
 
 # Installation
