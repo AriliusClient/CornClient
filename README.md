@@ -8,7 +8,7 @@ based block game hax
 
 we have discor
 
-<a href="https://discord.gg/rvC7F798xQ"><img src="https://invidget.switchblade.xyz/rvC7F798xQ"/></a>
+<a href="https://discord.gg/rvC7F798xQ"><img src="https://invidget.switchblade.xyz/A7vGm8sW"/></a>
 
 # Installation
 
