@@ -11,9 +11,8 @@ import java.util.Set;
 
 @Mixin(PlayerPositionLookS2CPacket.class)
 public class PlayerPositionLookS2CPacketMixin {
-    @Inject(method = "<init>(DDDFFLjava/util/Set;I)V", at = @At("TAIL"))
-    public void init(double x, double y, double z, float yaw, float pitch, Set<PlayerPositionLookS2CPacket.Flag> flags,
-                     int teleportId, CallbackInfo ci) {
+    @Inject(method = "<init>(DDDFFLjava/util/Set;IZ)V", at = @At("TAIL"))
+    public void init(double x, double y, double z, float yaw, float pitch, Set<PlayerPositionLookS2CPacket.Flag> flags, int teleportId, boolean shouldDismount, CallbackInfo ci) {
         Flight.tpid = teleportId;
     }
 }

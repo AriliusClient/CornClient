@@ -12,7 +12,7 @@ import me.zeroX150.cornos.Cornos;
 import me.zeroX150.cornos.etc.helper.STL;
 import me.zeroX150.cornos.features.command.Command;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 
 public class Rename extends Command {
@@ -23,7 +23,7 @@ public class Rename extends Command {
     @Override
     public void onExecute(String[] args) {
         assert Cornos.minecraft.player != null;
-        ItemStack is = Cornos.minecraft.player.inventory.getStack(Cornos.minecraft.player.inventory.selectedSlot);
+        ItemStack is = Cornos.minecraft.player.getInventory().getStack(Cornos.minecraft.player.getInventory().selectedSlot);
         if (is.isEmpty()) {
             STL.notifyUser("man u gotta hold sum");
             return;
@@ -32,7 +32,7 @@ public class Rename extends Command {
             STL.notifyUser("Homie ima need the new name");
             return;
         }
-        CompoundTag compoundTag = is.getOrCreateSubTag("display");
+        NbtCompound compoundTag = is.getOrCreateSubTag("display");
         compoundTag.putString("Name",
                 Text.Serializer.toJson(Text.of("§r" + String.join(" ", args).replaceAll("&", "§"))));
 

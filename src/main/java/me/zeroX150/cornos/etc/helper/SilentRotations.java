@@ -16,17 +16,17 @@ public class SilentRotations {
 
     public static void doSilentRotation(EntityAnchorArgumentType.EntityAnchor anchorPoint, Vec3d target) {
         assert Cornos.minecraft.player != null;
-        float pitch = Cornos.minecraft.player.pitch;
-        float yaw = Cornos.minecraft.player.yaw;
+        float pitch = Cornos.minecraft.player.getPitch();
+        float yaw = Cornos.minecraft.player.getYaw();
         Cornos.minecraft.player.lookAt(anchorPoint, target);
         Entity cameraEntity = Cornos.minecraft.cameraEntity;
         assert cameraEntity != null;
-        camPitch = cameraEntity.pitch;
-        camYaw = cameraEntity.yaw;
+        camPitch = cameraEntity.getPitch();
+        camYaw = cameraEntity.getYaw();
         prevCamPitch = cameraEntity.prevPitch;
         prevCamYaw = cameraEntity.prevYaw;
-        cameraEntity.pitch = pitch;
-        cameraEntity.yaw = yaw;
+        cameraEntity.setPitch(pitch);
+        cameraEntity.setYaw(yaw);
         nextRotationSilent = true;
     }
 

@@ -55,7 +55,7 @@ public class Give extends Command {
             return;
         }
 
-        Cornos.minecraft.player.inventory.addPickBlock(itemStack);
+        Cornos.minecraft.player.getInventory().addPickBlock(itemStack);
         STL.notifyUser("Gave you " + amount + " "
                 + (amount > 1 ? itemStack.getName().getString() + "s" : itemStack.getName().getString()));
 

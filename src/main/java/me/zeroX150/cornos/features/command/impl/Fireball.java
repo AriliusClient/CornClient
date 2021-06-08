@@ -13,7 +13,7 @@ import me.zeroX150.cornos.etc.helper.STL;
 import me.zeroX150.cornos.features.command.Command;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.StringNbtReader;
 import net.minecraft.network.packet.c2s.play.CreativeInventoryActionC2SPacket;
 
@@ -35,7 +35,7 @@ public class Fireball extends Command {
             STL.notifyUser("Provide a number");
         }
         Cornos.minecraft.getNetworkHandler().sendPacket(
-                new CreativeInventoryActionC2SPacket(36 + Cornos.minecraft.player.inventory.selectedSlot, fb)); // better
+                new CreativeInventoryActionC2SPacket(36 + Cornos.minecraft.player.getInventory().selectedSlot, fb)); // better
         // doin
         // this
         // as
@@ -50,7 +50,7 @@ public class Fireball extends Command {
         super.onExecute(args);
     }
 
-    private CompoundTag createNBT(Integer fireballpower) {
+    private NbtCompound createNBT(Integer fireballpower) {
         try {
             return StringNbtReader.parse(
                     "{display:{Name:'[{\"text\":\"Fireball \",\"color\":\"red\",\"bold\":true,\"italic\":false},{\"text\":\" of power \",\"color\":\"red\",\"bold\":false,\"italic\":false},{\"text\":\""

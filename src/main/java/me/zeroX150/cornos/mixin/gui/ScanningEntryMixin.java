@@ -56,6 +56,6 @@ public class ScanningEntryMixin {
             case 2:
                 loading = "o o O";
         }
-        DrawableHelper.drawCenteredString(matrices, this.client.textRenderer, loading, 320 / 2, i + 9, 8421504);
+        DrawableHelper.drawCenteredText(matrices, this.client.textRenderer, loading, 320 / 2, i + 9, 8421504);
     }
 }

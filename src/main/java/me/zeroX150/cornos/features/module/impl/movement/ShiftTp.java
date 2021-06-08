@@ -22,7 +22,7 @@ public class ShiftTp extends Module {
             Vec3d rot = Cornos.minecraft.player.getRotationVector();
             rot = rot.multiply(1, 0, 1);
             pos = pos.add(rot.multiply(mtp));
-            Cornos.minecraft.player.world.sendPacket(new PlayerMoveC2SPacket.PositionOnly(pos.x, pos.y, pos.z, false));
+            Cornos.minecraft.player.world.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(pos.x, pos.y, pos.z, true));
             Cornos.minecraft.player.updatePosition(pos.x, pos.y, pos.z);
 
         }

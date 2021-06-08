@@ -82,13 +82,4 @@ public class GameRendererMixin {
         });
 
     }
-
-    @Inject(at = {
-            @At(value = "FIELD", target = "Lnet/minecraft/client/options/GameOptions;bobView:Z", opcode = Opcodes.GETFIELD, ordinal = 0)}, method = "renderWorld")
-    private void fixTracerBobbing(float tickDelta, long limitTime, MatrixStack matrix, CallbackInfo ci) {
-        if (Cornos.minecraft.options.bobView) {
-            vb = true;
-            Cornos.minecraft.options.bobView = false;
-        }
-    }
 }

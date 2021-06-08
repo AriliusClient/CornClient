@@ -25,10 +25,10 @@ public class Dupe extends Command {
                 new Thread(() -> {
                     for (int i = 0; i < ((9 * 4) - 1); i++) {
 
-                        Cornos.minecraft.player.inventory.setStack(i,
-                                Cornos.minecraft.player.inventory.getMainHandStack().copy());
+                        Cornos.minecraft.player.getInventory().setStack(i,
+                                Cornos.minecraft.player.getInventory().getMainHandStack().copy());
                         for (int ii = 0; ii < 64; ii++) {
-                            Cornos.minecraft.player.inventory.getStack(i).setCount(ii);
+                            Cornos.minecraft.player.getInventory().getStack(i).setCount(ii);
                             try {
                                 Thread.sleep(10);
                             } catch (InterruptedException e) {

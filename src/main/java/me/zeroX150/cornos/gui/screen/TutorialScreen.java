@@ -53,7 +53,7 @@ public class TutorialScreen extends Screen {
             } else
                 page++;
         });
-        this.addButton(continueBTN);
+        this.addDrawableChild(continueBTN);
     }
 
     @Override

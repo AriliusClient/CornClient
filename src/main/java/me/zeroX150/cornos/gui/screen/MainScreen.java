@@ -11,7 +11,7 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
-import net.minecraft.client.gui.screen.options.OptionsScreen;
+import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
@@ -40,24 +40,24 @@ public class MainScreen extends Screen {
             this.client.openScreen(new TutorialScreen());
             return;
         }
-        this.addButton(new CustomButtonWidget(width - 125, height - 150, 120, 20, Text.of("Alts"), () -> {
+        this.addDrawableChild(new CustomButtonWidget(width - 125, height - 150, 120, 20, Text.of("Alts"), () -> {
             assert this.client != null;
             this.client.openScreen(new AltManagerScreen());
         }));
-        this.addButton(new CustomButtonWidget(width - 125, height - 125, 120, 20, Text.of("Settings"),
+        this.addDrawableChild(new CustomButtonWidget(width - 125, height - 125, 120, 20, Text.of("Settings"),
                 () -> Cornos.minecraft.openScreen(new OptionsScreen(this, Cornos.minecraft.options))));
-        this.addButton(new CustomButtonWidget(width - 125, height - 100, 120, 20, Text.of("Singleplayer"),
+        this.addDrawableChild(new CustomButtonWidget(width - 125, height - 100, 120, 20, Text.of("Singleplayer"),
                 () -> Cornos.minecraft.openScreen(new SelectWorldScreen(this))));
-        this.addButton(new CustomButtonWidget(width - 125, height - 75, 120, 20, Text.of("Multiplayer"),
+        this.addDrawableChild(new CustomButtonWidget(width - 125, height - 75, 120, 20, Text.of("Multiplayer"),
                 () -> Cornos.minecraft.openScreen(new MultiplayerScreen(this))));
         CustomButtonWidget btnw = new CustomButtonWidget(width - 125, height - 50, 120, 20, Text.of("Realms"),
                 () -> Cornos.minecraft.openScreen(new RealmsMainScreen(this)));
-        this.addButton(btnw);
-        this.addButton(new CustomButtonWidget(width - 125, height - 25, 120, 20, Text.of("Vanilla homescreen"), () -> {
+        this.addDrawableChild(btnw);
+        this.addDrawableChild(new CustomButtonWidget(width - 125, height - 25, 120, 20, Text.of("Vanilla homescreen"), () -> {
             Cornos.config.mconf.getByName("homescreen").setValue("vanilla");
             Cornos.minecraft.openScreen(new TitleScreen());
         }));
-        this.addButton(new TexturedButtonWidget(width - 20, 0, 20, 20, 0, 0, 0,
+        this.addDrawableChild(new TexturedButtonWidget(width - 20, 0, 20, 20, 0, 0, 0,
                 new Identifier("ccl", "transparent.png"), (b) -> {
             /*
              * btnw.setMessage(Text.of("Roleplay")); showSecrets = true;

@@ -13,7 +13,7 @@ import me.zeroX150.cornos.features.module.impl.external.ByteSizeViewer;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -38,7 +38,7 @@ public class ItemStackMixin {
         if (!is.hasTag()) {
             tl.add(Text.of("Byte size: No NBT tags, almost 0"));
         } else {
-            CompoundTag ct = is.getOrCreateTag();
+            NbtCompound ct = is.getOrCreateTag();
             if (ct.contains("bytesize")) {
                 tl.add(Text.of("Bytes: about " + ct.getString("bytesize")));
                 return;

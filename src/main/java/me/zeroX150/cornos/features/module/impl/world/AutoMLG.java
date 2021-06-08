@@ -35,7 +35,7 @@ public class AutoMLG extends Module {
             Item used = null;
             int itemToUse = -1;
             for (int i = 0; i < 9; i++) {
-                ItemStack is = Cornos.minecraft.player.inventory.getStack(i);
+                ItemStack is = Cornos.minecraft.player.getInventory().getStack(i);
                 boolean isGood = false;
                 for (Item lifesaver : lifesavers) {
                     if (is.getItem() == lifesaver) {
@@ -61,8 +61,8 @@ public class AutoMLG extends Module {
                         STL.interactWithItemInHotbar(itemToUse, c.add(0, 1, 0));
                     } else {
                         // i hate this, thanks minecraft
-                        Cornos.minecraft.player.inventory.selectedSlot = itemToUse;
-                        Cornos.minecraft.player.pitch = 90f;
+                        Cornos.minecraft.player.getInventory().selectedSlot = itemToUse;
+                        Cornos.minecraft.player.setPitch(90);
                         PlayerInteractItemC2SPacket p = new PlayerInteractItemC2SPacket(Hand.MAIN_HAND);
                         Cornos.minecraft.getNetworkHandler().sendPacket(p);
                     }

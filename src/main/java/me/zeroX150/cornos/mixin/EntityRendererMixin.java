@@ -74,16 +74,16 @@ public abstract class EntityRendererMixin<T extends Entity> {
             }
         }
         if (ModuleRegistry.search(Chams.class).isEnabled()) {
-            GlStateManager.enablePolygonOffset();
-            GlStateManager.polygonOffset(1, -1500000);
+            GlStateManager._enablePolygonOffset();
+            GlStateManager._polygonOffset(1, -1500000);
         }
     }
 
     @Inject(method = "render", at = @At("RETURN"))
     public void render1(T entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
         if (ModuleRegistry.search(Chams.class).isEnabled()) {
-            GlStateManager.disablePolygonOffset();
-            GlStateManager.polygonOffset(1, 1500000);
+            GlStateManager._disablePolygonOffset();
+            GlStateManager._polygonOffset(1, 1500000);
         }
     }
 }

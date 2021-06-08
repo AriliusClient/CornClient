@@ -123,14 +123,14 @@ public class Confuse extends Module {
                 double z = r.nextDouble() * 6 - 3;
                 Vec3d addend = new Vec3d(x, y, z);
                 Vec3d goal = entityPos.add(addend);
-                if (!Cornos.minecraft.world.getBlockState(new BlockPos(goal.x, goal.y, goal.z)).getBlock()
-                        .is(Blocks.AIR)) {
+                if (Cornos.minecraft.world.getBlockState(new BlockPos(goal.x, goal.y, goal.z)).getBlock()
+                        != (Blocks.AIR)) {
                     goal = new Vec3d(x, playerPos.y, z);
                 }
                 if (Cornos.minecraft.world.getBlockState(new BlockPos(goal.x, goal.y, goal.z)).getBlock()
-                        .is(Blocks.AIR)) {
+                        == (Blocks.AIR)) {
                     Raycast rc = new Raycast(Cornos.minecraft.player.getPos(), goal);
-                    if (!moveThroughBlocks.isEnabled() && rc.passesThroughBlock(1, true)) {
+                    if (!moveThroughBlocks.isEnabled() && rc.passesThroughBlock(1)) {
                         delayWaited = (int) (delay.getValue() - 1);
                         break;
                     }
@@ -145,7 +145,7 @@ public class Confuse extends Module {
                         MathHelper.clamp(diff.z, -3, 3));
                 Vec3d goal2 = entityPos.add(diff1);
                 Raycast rc1 = new Raycast(playerPos, goal2);
-                if (!moveThroughBlocks.isEnabled() && rc1.passesThroughBlock(1, false)) {
+                if (!moveThroughBlocks.isEnabled() && rc1.passesThroughBlock(1)) {
                     delayWaited = (int) (delay.getValue() - 1);
                     break;
                 }
@@ -160,7 +160,7 @@ public class Confuse extends Module {
                 double sin = Math.sin(rad) * 3;
                 double cos = Math.cos(rad) * 3;
                 Vec3d current = new Vec3d(entityPos.x + sin, playerPos.y, entityPos.z + cos);
-                if (!moveThroughBlocks.isEnabled() && new Raycast(playerPos, current).passesThroughBlock(1, false))
+                if (!moveThroughBlocks.isEnabled() && new Raycast(playerPos, current).passesThroughBlock(1))
                     break;
                 Cornos.minecraft.player.updatePosition(current.x, current.y, current.z);
                 break;

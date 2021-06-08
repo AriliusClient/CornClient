@@ -14,8 +14,8 @@ import me.zeroX150.cornos.features.command.Command;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.registry.Registry;
 import org.apache.commons.lang3.ArrayUtils;
@@ -48,7 +48,7 @@ public class Enchant extends Command {
             return;
         }
         assert Cornos.minecraft.player != null;
-        if (Cornos.minecraft.player.inventory.getStack(Cornos.minecraft.player.inventory.selectedSlot).isEmpty()) {
+        if (Cornos.minecraft.player.getInventory().getStack(Cornos.minecraft.player.getInventory().selectedSlot).isEmpty()) {
             STL.notifyUser("idk if you are holding an item ngl");
             return;
         }
@@ -62,14 +62,14 @@ public class Enchant extends Command {
                 String name = new TranslatableText(bruh.getTranslationKey()).getString();
                 if (name.equalsIgnoreCase(String.join(" ", argsTrimmed))) {
                     found = true;
-                    ItemStack is = Cornos.minecraft.player.inventory
-                            .getStack(Cornos.minecraft.player.inventory.selectedSlot);
-                    CompoundTag ct = is.getOrCreateTag();
+                    ItemStack is = Cornos.minecraft.player.getInventory()
+                            .getStack(Cornos.minecraft.player.getInventory().selectedSlot);
+                    NbtCompound ct = is.getOrCreateTag();
                     if (!ct.contains("Enchantments", 9))
-                        ct.put("Enchantments", new ListTag());
+                        ct.put("Enchantments", new NbtList());
 
-                    ListTag lt = ct.getList("Enchantments", 10);
-                    CompoundTag ct1 = new CompoundTag();
+                    NbtList lt = ct.getList("Enchantments", 10);
+                    NbtCompound ct1 = new NbtCompound();
                     ct1.putString("id", String.valueOf(Registry.ENCHANTMENT.getId(bruh)));
                     ct1.putInt("lvl", level);
                     lt.add(ct1);

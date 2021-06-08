@@ -89,9 +89,9 @@ public class ArrowAvoid extends Module {
                             } else if (mode.equalsIgnoreCase("packet")) {
                                 Vec3d vel2 = Cornos.minecraft.player.getPos().add(vel.multiply(speed));
                                 Cornos.minecraft.player.networkHandler.sendPacket(
-                                        new PlayerMoveC2SPacket.PositionOnly(vel2.x, vel2.y, vel2.z, false));
+                                        new PlayerMoveC2SPacket.PositionAndOnGround(vel2.x, vel2.y, vel2.z, false));
                                 Cornos.minecraft.player.networkHandler.sendPacket(
-                                        new PlayerMoveC2SPacket.PositionOnly(vel2.x, vel2.y - 0.01, vel2.z, true));
+                                        new PlayerMoveC2SPacket.PositionAndOnGround(vel2.x, vel2.y - 0.01, vel2.z, true));
                             }
                             return;
                         }
@@ -102,9 +102,9 @@ public class ArrowAvoid extends Module {
                     } else if (mode.equalsIgnoreCase("packet")) {
                         Vec3d vel2 = Cornos.minecraft.player.getPos().add(new Vec3d(0, 0, -speed));
                         Cornos.minecraft.player.networkHandler
-                                .sendPacket(new PlayerMoveC2SPacket.PositionOnly(vel2.x, vel2.y, vel2.z, false));
+                                .sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(vel2.x, vel2.y, vel2.z, false));
                         Cornos.minecraft.player.networkHandler
-                                .sendPacket(new PlayerMoveC2SPacket.PositionOnly(vel2.x, vel2.y - 0.01, vel2.z, true));
+                                .sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(vel2.x, vel2.y - 0.01, vel2.z, true));
                     }
                 }
             }

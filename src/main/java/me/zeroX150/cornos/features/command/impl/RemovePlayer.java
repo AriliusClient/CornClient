@@ -28,7 +28,7 @@ public class RemovePlayer extends Command {
             STL.notifyUser("Not sure if you are looking at a player");
             return;
         }
-        e.remove();
+        e.remove(Entity.RemovalReason.DISCARDED);
         Notification.create("WHERE DID HE GO??!?!?",
                 new String[]{"HOLY SHIT", e.getEntityName().toUpperCase() + " IS GONE!!!"}, 3000);
         super.onExecute(args);

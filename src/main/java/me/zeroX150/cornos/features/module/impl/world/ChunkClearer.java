@@ -13,7 +13,7 @@ import me.zeroX150.cornos.features.module.ModuleType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.options.KeyBinding;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.command.argument.EntityAnchorArgumentType;
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
@@ -49,8 +49,8 @@ public class ChunkClearer extends Module {
         assert Cornos.minecraft.player != null;
         if (fast.value.equals("max"))
             STL.notifyUser("oh no");
-        int cx = Cornos.minecraft.player.chunkX;
-        int cz = Cornos.minecraft.player.chunkZ;
+        int cx = Cornos.minecraft.player.getChunkPos().x;
+        int cz = Cornos.minecraft.player.getChunkPos().z;
         int startX = 16 * cx;
         int startZ = 16 * cz;
         int endX = startX + 15;
@@ -92,7 +92,7 @@ public class ChunkClearer extends Module {
                     boolean shift = false;
                     if (ignoreXray.isEnabled() && !shouldSkip) {
                         for (Block xrayBlock : CConf.xrayBlocks) {
-                            if (bs.getBlock().is(xrayBlock)) {
+                            if (bs.getBlock() == (xrayBlock)) {
                                 shouldSkip = true;
                                 break;
                             }
@@ -103,9 +103,9 @@ public class ChunkClearer extends Module {
                         BlockPos check = tpTo.up();
                         BlockState b1 = Cornos.minecraft.world.getBlockState(tpTo);
                         BlockState b2 = Cornos.minecraft.world.getBlockState(check);
-                        if (!b1.getBlock().is(Blocks.AIR) && !b1.getBlock().is(Blocks.CAVE_AIR))
+                        if (!b1.isAir())
                             shift = true;
-                        if (!b2.getBlock().is(Blocks.AIR) && !b2.getBlock().is(Blocks.CAVE_AIR))
+                        if (!b2.isAir())
                             shift = true;
                     }
                     if (shouldSkip)
@@ -118,10 +118,10 @@ public class ChunkClearer extends Module {
                             BlockPos to = bp1.add(i[0], i[1], i[2]);
                             BlockState b1 = Cornos.minecraft.world.getBlockState(to);
                             BlockState b2 = Cornos.minecraft.world.getBlockState(to.up());
-                            boolean downGood = b1.getBlock().is(Blocks.AIR) || b1.getBlock().is(Blocks.CAVE_AIR)
-                                    || b1.getBlock().is(Blocks.WATER) || b1.getBlock().is(Blocks.LAVA);
-                            boolean upGood = b2.getBlock().is(Blocks.AIR) || b2.getBlock().is(Blocks.CAVE_AIR)
-                                    || b2.getBlock().is(Blocks.WATER) || b2.getBlock().is(Blocks.LAVA);
+                            boolean downGood = b1.isAir()
+                                    || b1.getBlock() == (Blocks.WATER) || b1.getBlock() == (Blocks.LAVA);
+                            boolean upGood = b2.isAir()
+                                    || b2.getBlock() == (Blocks.WATER) || b2.getBlock() == (Blocks.LAVA);
                             if (downGood && upGood) {
                                 tpGoal = to;
                                 break;
@@ -132,7 +132,7 @@ public class ChunkClearer extends Module {
                     if (tpGoal == null)
                         continue;
                     if (!mode.value.equals("legit")) {
-                        PlayerMoveC2SPacket.PositionOnly p = new PlayerMoveC2SPacket.PositionOnly(tpGoal.getX() + .5,
+                        PlayerMoveC2SPacket.PositionAndOnGround p = new PlayerMoveC2SPacket.PositionAndOnGround(tpGoal.getX() + .5,
                                 tpGoal.getY(), tpGoal.getZ() + .5, true);
                         Objects.requireNonNull(Cornos.minecraft.getNetworkHandler()).sendPacket(p);
                         if (clientTeleport.isEnabled()) {
@@ -169,7 +169,7 @@ public class ChunkClearer extends Module {
         if (block != null) {
             assert Cornos.minecraft.player != null;
             Cornos.minecraft.player.lookAt(EntityAnchorArgumentType.EntityAnchor.EYES, block.add(.5, .5, .5));
-            Cornos.minecraft.player.pitch = 90;
+            Cornos.minecraft.player.setPitch(90);
             if ((block.y + 2) < Cornos.minecraft.player.getPos().y) {
                 Cornos.minecraft.options.keySneak.setPressed(true);
                 Cornos.minecraft.options.keyJump.setPressed(false);
@@ -182,7 +182,7 @@ public class ChunkClearer extends Module {
             }
 
             Cornos.minecraft.options.keyForward.setPressed(true);
-            Cornos.minecraft.player.abilities.flying = true;
+            Cornos.minecraft.player.getAbilities().flying = true;
             if (Cornos.minecraft.crosshairTarget instanceof BlockHitResult) {
                 BlockHitResult bhr = (BlockHitResult) Cornos.minecraft.crosshairTarget;
                 if (bhr.getBlockPos().getX() == block.x && bhr.getBlockPos().getY() == block.y

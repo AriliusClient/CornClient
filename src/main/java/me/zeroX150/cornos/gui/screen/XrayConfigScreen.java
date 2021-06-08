@@ -45,7 +45,7 @@ public class XrayConfigScreen extends Screen {
                 this.client.openScreen(new XrayConfigScreen());
             }
         });
-        addButton(add);
+        addDrawableChild(add);
         int offset = 40;
         int offsetX = 5;
         for (Block block : newBlocks.toArray(new Block[0])) {
@@ -55,7 +55,7 @@ public class XrayConfigScreen extends Screen {
                 assert this.client != null;
                 this.client.openScreen(new XrayConfigScreen());
             });
-            addButton(delete);
+            addDrawableChild(delete);
             offset += 25;
             if (offset + 20 > height) {
                 offset = 40;

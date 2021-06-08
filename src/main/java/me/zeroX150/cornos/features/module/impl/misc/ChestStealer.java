@@ -23,12 +23,11 @@ public class ChestStealer extends Module {
 
     @Override
     public void onExecute() {
-        if ((Cornos.minecraft.currentScreen instanceof GenericContainerScreen)
+        if ((Cornos.minecraft.currentScreen instanceof GenericContainerScreen gc)
                 && (Cornos.minecraft.crosshairTarget instanceof BlockHitResult)
                 && (Cornos.minecraft.world != null && Cornos.minecraft.world
                 .getBlockState(((BlockHitResult) Cornos.minecraft.crosshairTarget).getBlockPos()).getBlock()
-                .is(Blocks.CHEST))) {
-            GenericContainerScreen gc = (GenericContainerScreen) Cornos.minecraft.currentScreen;
+                == (Blocks.CHEST))) {
             int lastIndex = 0;
             int interacted = 0;
 

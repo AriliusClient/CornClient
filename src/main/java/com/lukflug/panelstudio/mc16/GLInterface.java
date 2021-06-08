@@ -5,6 +5,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.util.Identifier;
 import org.lwjgl.opengl.GL11;
@@ -61,11 +62,10 @@ public abstract class GLInterface implements Interface {
      * before rendering.
      */
     public static void begin() {
-        GlStateManager.enableBlend();
-        GlStateManager.disableTexture();
-        GlStateManager.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
-        GlStateManager.shadeModel(GL11.GL_SMOOTH);
-        GlStateManager.lineWidth(2);
+        GlStateManager._enableBlend();
+        GlStateManager._disableTexture();
+        GlStateManager._blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
+        GL11.glLineWidth(2);
     }
 
     /**
@@ -73,16 +73,15 @@ public abstract class GLInterface implements Interface {
      * rendering.
      */
     public static void end() {
-        GlStateManager.shadeModel(GL11.GL_FLAT);
-        GlStateManager.enableTexture();
-        GlStateManager.disableBlend();
+        GlStateManager._enableTexture();
+        GlStateManager._disableBlend();
     }
 
     @Override
     public void fillTriangle(Point pos1, Point pos2, Point pos3, Color c1, Color c2, Color c3) {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
-        bufferbuilder.begin(GL11.GL_TRIANGLES, VertexFormats.POSITION_COLOR);
+        bufferbuilder.begin(VertexFormat.DrawMode.TRIANGLES, VertexFormats.POSITION_COLOR);
         bufferbuilder.vertex(pos1.x, pos1.y, getZLevel())
                 .color(c1.getRed() / 255.0f, c1.getGreen() / 255.0f, c1.getBlue() / 255.0f, c1.getAlpha() / 255.0f)
                 .next();
@@ -99,7 +98,7 @@ public abstract class GLInterface implements Interface {
     public void drawLine(Point a, Point b, Color c1, Color c2) {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
-        bufferbuilder.begin(GL11.GL_LINES, VertexFormats.POSITION_COLOR);
+        bufferbuilder.begin(VertexFormat.DrawMode.LINES, VertexFormats.POSITION_COLOR);
         bufferbuilder.vertex(a.x, a.y, getZLevel())
                 .color(c1.getRed() / 255.0f, c1.getGreen() / 255.0f, c1.getBlue() / 255.0f, c1.getAlpha() / 255.0f)
                 .next();
@@ -113,7 +112,7 @@ public abstract class GLInterface implements Interface {
     public void fillRect(Rectangle r, Color c1, Color c2, Color c3, Color c4) {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
-        bufferbuilder.begin(GL11.GL_QUADS, VertexFormats.POSITION_COLOR);
+        bufferbuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
         bufferbuilder.vertex(r.x, r.y + r.height, getZLevel())
                 .color(c4.getRed() / 255.0f, c4.getGreen() / 255.0f, c4.getBlue() / 255.0f, c4.getAlpha() / 255.0f)
                 .next();
@@ -133,7 +132,7 @@ public abstract class GLInterface implements Interface {
     public void drawRect(Rectangle r, Color c1, Color c2, Color c3, Color c4) {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
-        bufferbuilder.begin(GL11.GL_LINE_LOOP, VertexFormats.POSITION_COLOR);
+        bufferbuilder.begin(VertexFormat.DrawMode.LINES, VertexFormats.POSITION_COLOR);
         bufferbuilder.vertex(r.x, r.y + r.height, getZLevel())
                 .color(c4.getRed() / 255.0f, c4.getGreen() / 255.0f, c4.getBlue() / 255.0f, c4.getAlpha() / 255.0f)
                 .next();
@@ -196,15 +195,15 @@ public abstract class GLInterface implements Interface {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         MinecraftClient.getInstance().getTextureManager().bindTexture(textures.get(image));
-        GlStateManager.enableTexture();
-        bufferbuilder.begin(GL11.GL_QUADS, VertexFormats.POSITION_TEXTURE);
+        GlStateManager._enableTexture();
+        bufferbuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
         bufferbuilder.vertex(r.x, r.y + r.height, getZLevel()).texture(texCoords[0][0], texCoords[0][1]).next();
         bufferbuilder.vertex(r.x + r.width, r.y + r.height, getZLevel()).texture(texCoords[1][0], texCoords[1][1])
                 .next();
         bufferbuilder.vertex(r.x + r.width, r.y, getZLevel()).texture(texCoords[2][0], texCoords[2][1]).next();
         bufferbuilder.vertex(r.x, r.y, getZLevel()).texture(texCoords[3][0], texCoords[3][1]).next();
         tessellator.draw();
-        GlStateManager.disableTexture();
+        GlStateManager._disableTexture();
     }
 
     /**

@@ -27,12 +27,12 @@ public class CreativeInventoryScreenMixin extends Screen {
 
     @Inject(method = "init", at = @At("RETURN"))
     public void init(CallbackInfo ci) {
-        this.addButton(new CustomButtonWidget(1, 1, 120, 20, 5, Text.of("Funny items"), () -> {
+        this.addDrawableChild(new CustomButtonWidget(1, 1, 120, 20, 5, Text.of("Funny items"), () -> {
             if (this.client == null)
                 return;
             this.client.openScreen(new FunnyItemsScreen());
         }));
-        this.addButton(new CustomButtonWidget(1, 22, 120, 20, 5, Text.of("Heads"), () -> {
+        this.addDrawableChild(new CustomButtonWidget(1, 22, 120, 20, 5, Text.of("Heads"), () -> {
             if (this.client == null)
                 return;
             this.client.openScreen(new HeadsScreen());

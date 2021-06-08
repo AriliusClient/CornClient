@@ -3,10 +3,12 @@ package me.zeroX150.cornos.etc.helper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.zeroX150.cornos.Cornos;
 import me.zeroX150.cornos.features.module.impl.external.Hud;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
@@ -18,7 +20,7 @@ import java.awt.*;
 
 public class Renderer {
     public static void renderBlockOutline(Vec3d bpos, Vec3d dimensions, int r, int g, int b, int a) {
-        Camera c = BlockEntityRenderDispatcher.INSTANCE.camera;
+        Camera c = Cornos.minecraft.getEntityRenderDispatcher().camera;
         Vec3d s = bpos.subtract(c.getPos());
         Vec3d e = s.add(dimensions);
         double f = s.x;
@@ -74,7 +76,7 @@ public class Renderer {
     }
 
     public static void renderOutline(Entity e) {
-        Camera c = BlockEntityRenderDispatcher.INSTANCE.camera;
+        Camera c = Cornos.minecraft.getEntityRenderDispatcher().camera;
         Vec3d p = e.getPos();
         Vec3d s = p.subtract(c.getPos());
         double r = Math.toRadians(-c.getYaw() + 90);
@@ -115,7 +117,7 @@ public class Renderer {
     }
 
     public static void renderLine(Vec3d from, Vec3d to, Color col, int width) {
-        Camera c = BlockEntityRenderDispatcher.INSTANCE.camera;
+        Camera c = Cornos.minecraft.getEntityRenderDispatcher().camera;
         GL11.glPushMatrix();
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -200,7 +202,6 @@ public class Renderer {
     }
 
     public static void renderCircle(double x, double y, double rad, Color col, double incr) {
-        GL11.glPushMatrix();
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
@@ -224,12 +225,12 @@ public class Renderer {
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_BLEND);
-        GL11.glPopMatrix();
+
     }
 
     public static Vec3d getCrosshairVector() {
 
-        Camera camera = BlockEntityRenderDispatcher.INSTANCE.camera;
+        Camera camera = Cornos.minecraft.getEntityRenderDispatcher().camera;
 
         ClientPlayerEntity player = Cornos.minecraft.player;
 
@@ -237,19 +238,18 @@ public class Renderer {
         float pi = (float) Math.PI;
 
         assert player != null;
-        float f1 = MathHelper.cos(-player.yaw * f - pi);
-        float f2 = MathHelper.sin(-player.yaw * f - pi);
-        float f3 = -MathHelper.cos(-player.pitch * f);
-        float f4 = MathHelper.sin(-player.pitch * f);
+        float f1 = MathHelper.cos(-player.getYaw() * f - pi);
+        float f2 = MathHelper.sin(-player.getYaw() * f - pi);
+        float f3 = -MathHelper.cos(-player.getPitch() * f);
+        float f4 = MathHelper.sin(-player.getPitch() * f);
 
         return new Vec3d(f2 * f3, f4, f1 * f3).add(camera.getPos());
     }
 
     public static void drawImage(MatrixStack matrices, Identifier identifier, int x, int y, int imageWidth,
                                  int imageHeight, float r, float g, float b) {
-
-        RenderSystem.enableAlphaTest();
-        RenderSystem.pushMatrix();
+        GL11.glEnable(GL11.GL_ALPHA_TEST);
+        GL11.glPushMatrix();
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(770, 771);
         GL11.glColor3f(r, g, b);
@@ -258,13 +258,9 @@ public class Renderer {
         Screen.drawTexture(matrices, x, y, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
 
         GL11.glColor3f(1, 1, 1);
-        RenderSystem.disableAlphaTest();
+        GL11.glDisable(GL11.GL_ALPHA_TEST);
         RenderSystem.disableBlend();
-        RenderSystem.popMatrix();
+        GL11.glPopMatrix();
 
-    }
-
-    public static Color getHSBRGB() {
-        return Color.getHSBColor((float) (((double) (System.currentTimeMillis() % 10000)) / 10000), 0.8f, 1);
     }
 }

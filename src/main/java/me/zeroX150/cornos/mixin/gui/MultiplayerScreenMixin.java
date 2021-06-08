@@ -15,7 +15,7 @@ import net.minecraft.client.gui.screen.multiplayer.MultiplayerServerListWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.LanServerQueryManager;
 import net.minecraft.client.network.ServerInfo;
-import net.minecraft.client.options.ServerList;
+import net.minecraft.client.option.ServerList;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
@@ -113,22 +113,21 @@ public abstract class MultiplayerScreenMixin extends Screen {
                     320, this.height, 32, this.height - 32, 36);
             this.serverListWidget.setServers(this.serverList);
         }
-
-        this.children.add(this.serverListWidget);
+        this.addDrawableChild(this.serverListWidget);
         this.buttonJoin = this
-                .addButton(new ButtonWidget(this.width - 105, this.height / 2 - 10 - 25 /* account for offset */, 100,
+                .addDrawableChild(new ButtonWidget(this.width - 105, this.height / 2 - 10 - 25 /* account for offset */, 100,
                         20, new TranslatableText("selectServer.select"), (buttonWidget) -> this.connect()));
-        this.addButton(new ButtonWidget(this.width - 105, this.height / 2 - 10, 100, 20,
+        this.addDrawableChild(new ButtonWidget(this.width - 105, this.height / 2 - 10, 100, 20,
                 new TranslatableText("selectServer.direct"), (buttonWidget) -> {
             this.selectedEntry = new ServerInfo(I18n.translate("selectServer.defaultName"), "", false);
             this.client.openScreen(new DirectConnectScreen(this, this::directConnect, this.selectedEntry));
         }));
-        this.addButton(new ButtonWidget(this.width - 105, this.height / 2 - 10 + 25, 100, 20,
+        this.addDrawableChild(new ButtonWidget(this.width - 105, this.height / 2 - 10 + 25, 100, 20,
                 new TranslatableText("selectServer.add"), (buttonWidget) -> {
             this.selectedEntry = new ServerInfo(I18n.translate("selectServer.defaultName"), "", false);
             this.client.openScreen(new AddServerScreen(this, this::addEntry, this.selectedEntry));
         }));
-        this.buttonEdit = this.addButton(new ButtonWidget(this.width - 105, this.height / 2 - 10 - 25 - 25 - 25, 100,
+        this.buttonEdit = this.addDrawableChild(new ButtonWidget(this.width - 105, this.height / 2 - 10 - 25 - 25 - 25, 100,
                 20, new TranslatableText("selectServer.edit"), (buttonWidget) -> {
             MultiplayerServerListWidget.Entry entry = this.serverListWidget.getSelected();
             if (entry instanceof MultiplayerServerListWidget.ServerEntry) {
@@ -139,7 +138,7 @@ public abstract class MultiplayerScreenMixin extends Screen {
             }
 
         }));
-        this.buttonDelete = this.addButton(new ButtonWidget(this.width - 105, this.height / 2 - 10 - 25 - 25, 100, 20,
+        this.buttonDelete = this.addDrawableChild(new ButtonWidget(this.width - 105, this.height / 2 - 10 - 25 - 25, 100, 20,
                 new TranslatableText("selectServer.delete"), (buttonWidget) -> {
             MultiplayerServerListWidget.Entry entry = this.serverListWidget.getSelected();
             if (entry instanceof MultiplayerServerListWidget.ServerEntry) {
@@ -154,9 +153,9 @@ public abstract class MultiplayerScreenMixin extends Screen {
             }
 
         }));
-        this.addButton(new ButtonWidget(this.width - 105, this.height / 2 - 10 + 25 + 25, 100, 20,
+        this.addDrawableChild(new ButtonWidget(this.width - 105, this.height / 2 - 10 + 25 + 25, 100, 20,
                 new TranslatableText("selectServer.refresh"), (buttonWidget) -> this.refresh()));
-        this.addButton(new ButtonWidget(this.width - 105, this.height - 25, 100, 20, ScreenTexts.CANCEL,
+        this.addDrawableChild(new ButtonWidget(this.width - 105, this.height - 25, 100, 20, ScreenTexts.CANCEL,
                 (buttonWidget) -> this.client.openScreen(this.parent)));
         this.updateButtonActivationStates();
     }

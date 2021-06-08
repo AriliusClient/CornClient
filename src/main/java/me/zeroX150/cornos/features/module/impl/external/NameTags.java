@@ -54,7 +54,7 @@ public class NameTags extends Module {
             matrices.translate(0.0D, f + (scale * 6), 0.0D);
             matrices.multiply(dispatcher.getRotation());
             matrices.scale(-scale, -scale, scale);
-            TextRenderer textRenderer = dispatcher.getTextRenderer();
+            TextRenderer textRenderer = Cornos.minecraft.textRenderer;
             int health = (int) ((PlayerEntity) entity).getHealth();
             double healthPercentage = (((PlayerEntity) entity).getHealth() / ((PlayerEntity) entity).getMaxHealth());
             healthPercentage = MathHelper.clamp(healthPercentage, 0, 1);
@@ -73,8 +73,8 @@ public class NameTags extends Module {
             }
             tag = this.health.isEnabled() ? tag + " " + health : tag;
             int width = textRenderer.getWidth(tag) / 2;
-            GlStateManager.enablePolygonOffset();
-            GlStateManager.polygonOffset(1f, -1500000);
+            GlStateManager._enablePolygonOffset();
+            GlStateManager._polygonOffset(1f, -1500000);
             GL11.glDepthFunc(GL11.GL_ALWAYS);
             float size = .5f;
             Matrix4f matrix4f = matrices.peek().getModel();
@@ -84,9 +84,9 @@ public class NameTags extends Module {
                     (float) ((width + 4) * healthPercentage), textRenderer.fontHeight + 2 + size, c.getRGB(), matrix4f);
             Cornos.minecraft.textRenderer.draw(matrices, tag, -Cornos.minecraft.textRenderer.getWidth(tag) / 2F, f,
                     Color.WHITE.getRGB());
-            GlStateManager.disablePolygonOffset();
+            GlStateManager._disablePolygonOffset();
             GL11.glDepthFunc(GL11.GL_LEQUAL);
-            GlStateManager.polygonOffset(1f, 1500000);
+            GlStateManager._polygonOffset(1f, 1500000);
             matrices.pop();
         }
     }

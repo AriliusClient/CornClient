@@ -2,6 +2,7 @@ package me.zeroX150.cornos.features.module.impl.misc;
 
 import me.zeroX150.cornos.Cornos;
 import me.zeroX150.cornos.features.module.Module;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.util.Hand;
 
@@ -26,7 +27,7 @@ public class AutoFish extends Module {
                 assert Cornos.minecraft.interactionManager != null;
                 Cornos.minecraft.interactionManager.interactItem(Cornos.minecraft.player, Cornos.minecraft.world,
                         Hand.MAIN_HAND);
-                fishingBobberEntity.remove();
+                fishingBobberEntity.remove(Entity.RemovalReason.DISCARDED);
                 new Thread(() -> {
                     try {
                         Thread.sleep(500);

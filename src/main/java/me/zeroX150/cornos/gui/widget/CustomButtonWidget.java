@@ -4,7 +4,8 @@ import me.zeroX150.cornos.Cornos;
 import me.zeroX150.cornos.etc.config.CConf;
 import me.zeroX150.cornos.etc.helper.Renderer;
 import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.gui.widget.AbstractPressableButtonWidget;
+import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
+import net.minecraft.client.gui.widget.PressableWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
@@ -12,7 +13,7 @@ import net.minecraft.util.math.Vec3d;
 
 import java.awt.*;
 
-public class CustomButtonWidget extends AbstractPressableButtonWidget {
+public class CustomButtonWidget extends PressableWidget {
     public Color unselectedColor = new Color(25, 44, 49, 50);
     protected int r;
     long lastCache = 0;
@@ -65,5 +66,10 @@ public class CustomButtonWidget extends AbstractPressableButtonWidget {
 
     double easeInOutQuart(double x) {
         return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    }
+
+    @Override
+    public void appendNarrations(NarrationMessageBuilder builder) {
+
     }
 }

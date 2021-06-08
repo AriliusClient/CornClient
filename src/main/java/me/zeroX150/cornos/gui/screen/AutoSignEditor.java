@@ -39,7 +39,7 @@ public class AutoSignEditor extends Screen {
             AutoSign.line3 = line3.getText();
             AutoSign.line4 = line4.getText();
         });
-        this.addButton(save);
+        this.addDrawableChild(save);
     }
 
     @Override

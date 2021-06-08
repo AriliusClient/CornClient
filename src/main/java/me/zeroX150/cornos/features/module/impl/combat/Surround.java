@@ -6,8 +6,8 @@ import me.zeroX150.cornos.etc.config.MConfToggleable;
 import me.zeroX150.cornos.features.module.Module;
 import me.zeroX150.cornos.features.module.ModuleType;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.options.GameOptions;
-import net.minecraft.client.options.KeyBinding;
+import net.minecraft.client.option.GameOptions;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Hand;
@@ -81,11 +81,11 @@ public class Surround extends Module {
                     go.keyBack.setPressed(false);
                     go.keyJump.setPressed(false);
                 }
-                int prevIndex = Cornos.minecraft.player.inventory.selectedSlot;
+                int prevIndex = Cornos.minecraft.player.getInventory().selectedSlot;
                 int obsidianIndex = -1;
                 if (switchToObby.isEnabled()) {
                     for (int i = 0; i < 9; i++) {
-                        ItemStack current = Cornos.minecraft.player.inventory.getStack(i);
+                        ItemStack current = Cornos.minecraft.player.getInventory().getStack(i);
                         if (current.getItem() == Items.OBSIDIAN) {
                             obsidianIndex = i;
                             break;
@@ -95,8 +95,8 @@ public class Surround extends Module {
                         // obsidian issue
                         return;
                     }
-                    if (Cornos.minecraft.player.inventory.selectedSlot != obsidianIndex) {
-                        Cornos.minecraft.player.inventory.selectedSlot = obsidianIndex;
+                    if (Cornos.minecraft.player.getInventory().selectedSlot != obsidianIndex) {
+                        Cornos.minecraft.player.getInventory().selectedSlot = obsidianIndex;
                     }
                 }
                 BlockPos bruh = Cornos.minecraft.player.getBlockPos();
@@ -111,7 +111,7 @@ public class Surround extends Module {
                     if (!instant.isEnabled())
                         break;
                 }
-                Cornos.minecraft.player.inventory.selectedSlot = prevIndex;
+                Cornos.minecraft.player.getInventory().selectedSlot = prevIndex;
             }
             if (delayWaited > delay.max + 1)
                 delayWaited = (int) Math.ceil(delay.max);

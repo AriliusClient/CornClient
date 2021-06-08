@@ -92,7 +92,7 @@ public class ClickGUI extends MinecraftGUI {
         gui = new com.lukflug.panelstudio.ClickGUI(guiInterface, context -> {
             int h = Cornos.minecraft.getWindow().getScaledHeight();
             int x = Cornos.minecraft.getWindow().getScaledWidth() / 2;
-            DrawableHelper.drawCenteredString(new MatrixStack(), Cornos.minecraft.textRenderer, context.getDescription(), x, h - 15, 0xFFFFFFFF);
+            DrawableHelper.drawCenteredText(new MatrixStack(), Cornos.minecraft.textRenderer, context.getDescription(), x, h - 15, 0xFFFFFFFF);
         });
         int offset = 10 - 114;
         int offsetY = 10;
@@ -311,8 +311,8 @@ public class ClickGUI extends MinecraftGUI {
                 }
             }
         });
-        addButton(expand);
-        addButton(no);
+        addDrawableChild(expand);
+        addDrawableChild(no);
     }
 
     @Override

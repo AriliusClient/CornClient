@@ -54,8 +54,8 @@ public class OreSim extends Module {
     public void onRender(MatrixStack ms, float td) {
         if (worldSeed != 0) {
             assert Cornos.minecraft.player != null;
-            int chunkX = Cornos.minecraft.player.chunkX;
-            int chunkZ = Cornos.minecraft.player.chunkZ;
+            int chunkX = Cornos.minecraft.player.getChunkPos().x;
+            int chunkZ = Cornos.minecraft.player.getChunkPos().z;
 
             int rangeVal = (int) chunkRange.getValue();
             for (int range = 0; range <= rangeVal; range++) {
@@ -116,8 +116,8 @@ public class OreSim extends Module {
         int renderdistance = MinecraftClient.getInstance().options.viewDistance;
 
         assert Cornos.minecraft.player != null;
-        int playerChunkX = Cornos.minecraft.player.chunkX;
-        int playerChunkZ = Cornos.minecraft.player.chunkZ;
+        int playerChunkX = Cornos.minecraft.player.getChunkPos().x;
+        int playerChunkZ = Cornos.minecraft.player.getChunkPos().z;
 
         for (int i = playerChunkX - renderdistance; i < playerChunkX + renderdistance; i++) {
             for (int j = playerChunkZ - renderdistance; j < playerChunkZ + renderdistance; j++) {
@@ -150,7 +150,7 @@ public class OreSim extends Module {
             if (ore.name == OreType.LDEBRIS || ore.name == OreType.SDEBRIS) {
                 assert worldAccess != null;
                 Identifier id = worldAccess.getRegistryManager().get(Registry.BIOME_KEY)
-                        .getId(worldAccess.getBiomeAccess().getBiome(chunkX, 0, chunkZ));
+                        .getId(worldAccess.getBiomeAccess().getBiome(new BlockPos(chunkX,0,chunkZ)));
                 if (id == null) {
                     Notification.create("OreSim", new String[]{"Error doing math", "Something went wrong, you may have", "some mods that mess with world generation"}, 8000);
                     this.setEnabled(false);

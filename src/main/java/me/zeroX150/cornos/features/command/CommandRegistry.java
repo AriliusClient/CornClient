@@ -15,7 +15,6 @@ public class CommandRegistry {
         cl.add(new Test());
         cl.add(new Help());
         cl.add(new Dupe());
-        cl.add(new Crash());
         cl.add(new Keybind());
         cl.add(new Clip());
         cl.add(new CopyIP());
@@ -39,7 +38,7 @@ public class CommandRegistry {
         cl.add(new Teleport());
         cl.add(new Fireball());
         cl.add(new CrashPlayer());
-        cl.add(new Gamemode());
+
         cl.add(new RandomBook());
         cl.add(new DataDump());
         cl.add(new Filler());

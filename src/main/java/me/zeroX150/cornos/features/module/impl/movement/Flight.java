@@ -10,7 +10,7 @@ import me.zeroX150.cornos.etc.event.arg.PacketEvent;
 import me.zeroX150.cornos.etc.helper.Rnd;
 import me.zeroX150.cornos.features.module.Module;
 import me.zeroX150.cornos.features.module.ModuleType;
-import net.minecraft.client.options.GameOptions;
+import net.minecraft.client.option.GameOptions;
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.network.packet.c2s.play.TeleportConfirmC2SPacket;
@@ -69,14 +69,14 @@ public class Flight extends Module {
     public void onExecute() {
         if (abilitiesBefore == null) {
             assert Cornos.minecraft.player != null;
-            abilitiesBefore = Cornos.minecraft.player.abilities;
+            abilitiesBefore = Cornos.minecraft.player.getAbilities();
         }
         double speed = ((MConfNum) this.mconf.getByName("speed")).getValue();
         counter1++;
         if (counter1 > 10) {
             counter1 = 0;
             assert Cornos.minecraft.player != null;
-            PlayerAbilities pa = Cornos.minecraft.player.abilities;
+            PlayerAbilities pa = Cornos.minecraft.player.getAbilities();
             pa.allowFlying = true;
             UpdatePlayerAbilitiesC2SPacket p = new UpdatePlayerAbilitiesC2SPacket(pa);
             Objects.requireNonNull(Cornos.minecraft.getNetworkHandler()).sendPacket(p);
@@ -91,8 +91,8 @@ public class Flight extends Module {
         switch (this.mconf.getByName("mode").value) {
             case "vanilla":
                 assert Cornos.minecraft.player != null;
-                Cornos.minecraft.player.abilities.flying = !(counter > 9);
-                Cornos.minecraft.player.abilities.setFlySpeed((float) (speed / 10));
+                Cornos.minecraft.player.getAbilities().flying = !(counter > 9);
+                Cornos.minecraft.player.getAbilities().setFlySpeed((float) (speed / 10));
                 break;
             case "3d":
                 assert Cornos.minecraft.player != null;
@@ -110,7 +110,7 @@ public class Flight extends Module {
             case "packet":
             case "static":
                 assert Cornos.minecraft.player != null;
-                float y = Cornos.minecraft.player.yaw;
+                float y = Cornos.minecraft.player.getYaw();
                 int mx = 0, my = 0, mz = 0;
 
                 if (go.keyJump.isPressed())
@@ -144,9 +144,9 @@ public class Flight extends Module {
                         Vec3d ppos = Cornos.minecraft.player.getPos();
                         Vec3d bruh = nv3.multiply(0.8);
                         // Cornos.minecraft.player.updatePosition(ppos.x+bruh.x,ppos.y+bruh.y,ppos.z+bruh.z);
-                        PlayerMoveC2SPacket p = new PlayerMoveC2SPacket.PositionOnly(ppos.x, ppos.y + 1850, ppos.z,
+                        PlayerMoveC2SPacket.PositionAndOnGround p = new PlayerMoveC2SPacket.PositionAndOnGround(ppos.x, ppos.y + 1850, ppos.z,
                                 Cornos.minecraft.player.isOnGround());
-                        PlayerMoveC2SPacket p1 = new PlayerMoveC2SPacket.PositionOnly(ppos.x + bruh.x, ppos.y + bruh.y,
+                        PlayerMoveC2SPacket.PositionAndOnGround p1 = new PlayerMoveC2SPacket.PositionAndOnGround(ppos.x + bruh.x, ppos.y + bruh.y,
                                 ppos.z + bruh.z, Cornos.minecraft.player.isOnGround());
                         trustedPackets.add(p);
                         trustedPackets.add(p1);
@@ -217,7 +217,7 @@ public class Flight extends Module {
     public void onEnable() {
         assert Cornos.minecraft.player != null;
         startheight = Cornos.minecraft.player.getPos().y;
-        abilitiesBefore = Cornos.minecraft.player.abilities;
+        abilitiesBefore = Cornos.minecraft.player.getAbilities();
         super.onEnable();
     }
 
@@ -227,9 +227,9 @@ public class Flight extends Module {
         if (abilitiesBefore == null)
             return;
         assert Cornos.minecraft.player != null;
-        Cornos.minecraft.player.abilities.setFlySpeed(abilitiesBefore.getFlySpeed());
-        Cornos.minecraft.player.abilities.allowFlying = Cornos.minecraft.player.isCreative();
-        Cornos.minecraft.player.abilities.flying = false;
+        Cornos.minecraft.player.getAbilities().setFlySpeed(abilitiesBefore.getFlySpeed());
+        Cornos.minecraft.player.getAbilities().allowFlying = Cornos.minecraft.player.isCreative();
+        Cornos.minecraft.player.getAbilities().flying = false;
         super.onDisable();
     }
 }

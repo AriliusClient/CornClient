@@ -5,8 +5,8 @@ import me.zeroX150.cornos.etc.helper.Rnd;
 import me.zeroX150.cornos.etc.helper.STL;
 import me.zeroX150.cornos.features.command.Command;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
 
 public class RandomBook extends Command {
     public RandomBook() {
@@ -17,7 +17,7 @@ public class RandomBook extends Command {
     @Override
     public void onExecute(String[] args) {
         assert Cornos.minecraft.player != null;
-        if (Cornos.minecraft.player.inventory.getMainHandStack().getItem() != Items.WRITABLE_BOOK) {
+        if (Cornos.minecraft.player.getInventory().getMainHandStack().getItem() != Items.WRITABLE_BOOK) {
             STL.notifyUser("Hold a book please thank you");
             return;
         }
@@ -30,7 +30,7 @@ public class RandomBook extends Command {
             return;
         }
         long max = "all".equalsIgnoreCase(args[0]) ? 0xFFFFFF : Long.parseLong(args[0]);
-        ListTag pages = new ListTag();
+        NbtList pages = new NbtList();
         long currentSize = 0;
         StringBuilder a = new StringBuilder();
         while (currentSize < max && pages.size() < 100) {
@@ -42,10 +42,10 @@ public class RandomBook extends Command {
                     break;
                 a.append(current);
             }
-            pages.add(StringTag.of(a.toString()));
+            pages.add(NbtString.of(a.toString()));
             a = new StringBuilder();
         }
-        Cornos.minecraft.player.inventory.getMainHandStack().putSubTag("pages", pages);
+        Cornos.minecraft.player.getInventory().getMainHandStack().putSubTag("pages", pages);
         STL.notifyUser("done.");
     }
 }

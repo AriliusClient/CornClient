@@ -95,43 +95,43 @@ public class FunnyItemsScreen extends Screen {
                 });
 
         CustomButtonWidget crashFireball = new CustomButtonWidget(210, 20, 200, 20, Text.of("Server crash fireball"),
-                () -> Cornos.minecraft.player.inventory.addPickBlock(ItemExploits.SERVER_CRASH_FIREBALL.get()));
+                () -> Cornos.minecraft.player.getInventory().addPickBlock(ItemExploits.SERVER_CRASH_FIREBALL.get()));
         CustomButtonWidget blockban = new CustomButtonWidget(210, 45, 200, 20, Text.of("Blockban crash"),
-                () -> Cornos.minecraft.player.inventory.addPickBlock(ItemExploits.BLOCKBAN.get()));
+                () -> Cornos.minecraft.player.getInventory().addPickBlock(ItemExploits.BLOCKBAN.get()));
         CustomButtonWidget lagmorstand = new CustomButtonWidget(210, 70, 200, 20, Text.of("32k Lagmor stand"),
-                () -> Cornos.minecraft.player.inventory.addPickBlock(ItemExploits.LAGMOR_STAND.get()));
+                () -> Cornos.minecraft.player.getInventory().addPickBlock(ItemExploits.LAGMOR_STAND.get()));
         CustomButtonWidget cKitKickStand = new CustomButtonWidget(415, 20, 200, 20, Text.of("Kick stand"),
-                () -> Cornos.minecraft.player.inventory.addPickBlock(ItemExploits.KICK_STAND.get()));
+                () -> Cornos.minecraft.player.getInventory().addPickBlock(ItemExploits.KICK_STAND.get()));
         CustomButtonWidget cTrollHelmet = new CustomButtonWidget(415, 45, 200, 20, Text.of("Troll helmet"),
-                () -> Cornos.minecraft.player.inventory.addPickBlock(ItemExploits.NO_MOVE_HELMET.get()));
+                () -> Cornos.minecraft.player.getInventory().addPickBlock(ItemExploits.NO_MOVE_HELMET.get()));
         CustomButtonWidget cNoEntityKill = new CustomButtonWidget(415, 70, 200, 20, Text.of("No Entity Kill"),
-                () -> Cornos.minecraft.player.inventory.addPickBlock(ItemExploits.NO_ENTITY_KILL.get()));
-        this.addButton(currentPos);
-        this.addButton(spawnStand);
-        this.addButton(crashFireball);
-        this.addButton(enableStandAura);
-        this.addButton(blockban);
-        this.addButton(lagmorstand);
-        this.addButton(cKitKickStand);
-        this.addButton(cTrollHelmet);
-        this.addButton(cNoEntityKill);
+                () -> Cornos.minecraft.player.getInventory().addPickBlock(ItemExploits.NO_ENTITY_KILL.get()));
+        this.addDrawableChild(currentPos);
+        this.addDrawableChild(spawnStand);
+        this.addDrawableChild(crashFireball);
+        this.addDrawableChild(enableStandAura);
+        this.addDrawableChild(blockban);
+        this.addDrawableChild(lagmorstand);
+        this.addDrawableChild(cKitKickStand);
+        this.addDrawableChild(cTrollHelmet);
+        this.addDrawableChild(cNoEntityKill);
     }
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         DrawableHelper.fill(matrices, 0, 0, width, height, new Color(0, 0, 0, 175).getRGB());
         // holo generator
-        DrawableHelper.drawCenteredString(matrices, textRenderer, "Hologram", 105, 5, 0xFFFFFF);
+        DrawableHelper.drawCenteredText(matrices, textRenderer, "Hologram", 105, 5, 0xFFFFFF);
         armorStandName.render(matrices, mouseX, mouseY, delta);
         armorStandSpawnegg.render(matrices, mouseX, mouseY, delta);
-        DrawableHelper.drawCenteredString(matrices, textRenderer, "Hologram aura", 105, 120, 0xFFFFFF);
+        DrawableHelper.drawCenteredText(matrices, textRenderer, "Hologram aura", 105, 120, 0xFFFFFF);
         standAuraName.render(matrices, mouseX, mouseY, delta);
         pos.render(matrices, mouseX, mouseY, delta);
         auraText.render(matrices, mouseX, mouseY, delta);
-        DrawableHelper.drawCenteredString(matrices, textRenderer, "Hologram arg (Text / URL)", 105, 155, 0xFFFFFF);
+        DrawableHelper.drawCenteredText(matrices, textRenderer, "Hologram arg (Text / URL)", 105, 155, 0xFFFFFF);
         // item presets
-        DrawableHelper.drawCenteredString(matrices, textRenderer, "Funny items²", 310, 5, 0xFFFFFF);
-        DrawableHelper.drawCenteredString(matrices, textRenderer, "Cornos raid kit", 515, 5, 0xFFFFFF);
+        DrawableHelper.drawCenteredText(matrices, textRenderer, "Funny items²", 310, 5, 0xFFFFFF);
+        DrawableHelper.drawCenteredText(matrices, textRenderer, "Cornos raid kit", 515, 5, 0xFFFFFF);
 
         textRenderer.draw(matrices, "Remember to open your inventory before using these", 1, height - 10,
                 Hud.themeColor.getRGB());

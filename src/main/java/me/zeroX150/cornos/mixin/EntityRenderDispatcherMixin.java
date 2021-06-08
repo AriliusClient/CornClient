@@ -17,16 +17,16 @@ public class EntityRenderDispatcherMixin {
     @Inject(method = "render", at = @At("HEAD"))
     public <E extends Entity> void render(E entity, double x, double y, double z, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
         if (ModuleRegistry.search(Chams.class).isEnabled()) {
-            GlStateManager.enablePolygonOffset();
-            GlStateManager.polygonOffset(1, -1500000);
+            GlStateManager._enablePolygonOffset();
+            GlStateManager._polygonOffset(1, -1500000);
         }
     }
 
     @Inject(method = "render", at = @At("RETURN"))
     public <E extends Entity> void render1(E entity, double x, double y, double z, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
         if (ModuleRegistry.search(Chams.class).isEnabled()) {
-            GlStateManager.disablePolygonOffset();
-            GlStateManager.polygonOffset(1, 1500000);
+            GlStateManager._disablePolygonOffset();
+            GlStateManager._polygonOffset(1, 1500000);
         }
     }
 }

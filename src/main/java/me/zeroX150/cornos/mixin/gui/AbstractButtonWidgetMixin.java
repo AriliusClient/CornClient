@@ -4,8 +4,8 @@ import me.zeroX150.cornos.Cornos;
 import me.zeroX150.cornos.etc.config.CConf;
 import me.zeroX150.cornos.etc.helper.Renderer;
 import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.SliderWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.*;
 
-@Mixin(AbstractButtonWidget.class)
+@Mixin(ClickableWidget.class)
 public abstract class AbstractButtonWidgetMixin {
     @Shadow
     public int x;

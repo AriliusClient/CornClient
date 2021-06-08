@@ -66,7 +66,7 @@ public class FriendsManager {
         public OrderedText toOrderedText() {
             String string = filterString(toString());
             for (int i = 0; i < string.toCharArray().length; i++) {
-                orderedTexts.add(OrderedText.styledString(String.valueOf(string.toCharArray()[i]),
+                orderedTexts.add(OrderedText.styled(string.toCharArray()[i],
                         styles.get(MathHelper.clamp(i, 0, styles.size() - 1))));
             }
             return OrderedText.concat(orderedTexts);

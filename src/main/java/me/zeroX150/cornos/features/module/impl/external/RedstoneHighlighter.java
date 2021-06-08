@@ -64,9 +64,9 @@ public class RedstoneHighlighter extends Module {
             for (int _y = y - r; _y < y + r; _y++) {
                 for (int _z = z - r; _z < z + r; _z++) {
                     BlockState bs = Cornos.minecraft.world.getBlockState(new BlockPos(_x, _y, _z));
-                    if (bs.getBlock().is(Blocks.REDSTONE_WIRE) && bs.get(RedstoneWireBlock.POWER) != 0 && dust.isEnabled())
+                    if (bs.getBlock() == (Blocks.REDSTONE_WIRE) && bs.get(RedstoneWireBlock.POWER) != 0 && dust.isEnabled())
                         blockMap.add(new BlockPos(_x, _y, _z));
-                    else if (bs.getBlock().is(Blocks.REPEATER)) {
+                    else if (bs.getBlock() == (Blocks.REPEATER)) {
                         int delay = bs.get(RepeaterBlock.DELAY);
                         if ((delay == 1 && repeatersS1.isEnabled()) || (delay == 2 && repeatersS2.isEnabled())
                                 || (delay == 3 && repeatersS3.isEnabled()) || (delay == 4 && repeatersS4.isEnabled()))
@@ -82,14 +82,14 @@ public class RedstoneHighlighter extends Module {
     public void onRender(MatrixStack ms, float td) {
         for (BlockPos renderableBlock : blockMap.toArray(new BlockPos[0])) {
             BlockState state = Cornos.minecraft.world.getBlockState(renderableBlock);
-            if (!state.getBlock().is(Blocks.REPEATER) && !state.getBlock().is(Blocks.REDSTONE_WIRE))
+            if (state.getBlock()!=(Blocks.REPEATER) && state.getBlock()!=(Blocks.REDSTONE_WIRE))
                 continue;
             Color red = redstoneColor.getColor();
             Color rep = repeaterColor.getColor();
             int r = red.getRed();
             int g = red.getGreen();
             int b = red.getBlue();
-            if (state.getBlock().is(Blocks.REPEATER)) {
+            if (state.getBlock()!=(Blocks.REPEATER)) {
                 r = rep.getRed();
                 g = rep.getGreen();
                 b = rep.getBlue();

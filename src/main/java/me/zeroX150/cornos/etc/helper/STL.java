@@ -6,6 +6,8 @@ import com.google.common.io.Files;
 import com.mojang.authlib.Agent;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMaps;
 import me.zeroX150.cornos.Cornos;
 import me.zeroX150.cornos.mixin.IMinecraftClientAccessor;
 import me.zeroX150.cornos.mixin.IRenderTickCounterAccessor;
@@ -148,10 +150,10 @@ public class STL {
     }
 
     public static void drop(int index) {
-        short actionID = Cornos.minecraft.player.currentScreenHandler
-                .getNextActionId(Cornos.minecraft.player.inventory);
-        ItemStack is = Cornos.minecraft.player.inventory.getStack(index);
-        ClickSlotC2SPacket p = new ClickSlotC2SPacket(0, index, 1, SlotActionType.THROW, is, actionID);
+        ItemStack is = Cornos.minecraft.player.getInventory().getStack(index);
+        Int2ObjectMap<ItemStack> mod = Int2ObjectMaps.emptyMap();
+        mod.put(0,is);
+        ClickSlotC2SPacket p = new ClickSlotC2SPacket(0, index, 1, SlotActionType.THROW, is, mod);
         Cornos.minecraft.getNetworkHandler().sendPacket(p);
     }
 
@@ -199,12 +201,12 @@ public class STL {
     public static void interactWithItemInHotbar(int slot, BlockPos position) {
         if (slot < 0 || slot > 8 || Cornos.minecraft.player == null || Cornos.minecraft.interactionManager == null)
             return;
-        int prev = Cornos.minecraft.player.inventory.selectedSlot;
-        Cornos.minecraft.player.inventory.selectedSlot = slot;
+        int prev = Cornos.minecraft.player.getInventory().selectedSlot;
+        Cornos.minecraft.player.getInventory().selectedSlot = slot;
         int ofx = Direction.DOWN.getOffsetX(), ofy = Direction.DOWN.getOffsetY(), ofz = Direction.DOWN.getOffsetZ();
         BlockHitResult bhr = new BlockHitResult(new Vec3d(position.getX(), position.getY(), position.getZ()).add(.5, .5, .5).add(ofx, ofy, ofz), Direction.DOWN, position, false);
         Cornos.minecraft.interactionManager.interactBlock(Cornos.minecraft.player, Cornos.minecraft.world,
                 Hand.MAIN_HAND, bhr);
-        Cornos.minecraft.player.inventory.selectedSlot = prev;
+        Cornos.minecraft.player.getInventory().selectedSlot = prev;
     }
 }

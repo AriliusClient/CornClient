@@ -17,12 +17,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class BlockMixin {
 
     @Inject(method = "shouldDrawSide", cancellable = true, at = @At("HEAD"))
-    private static void checkBlock(BlockState state, BlockView world, BlockPos pos, Direction facing,
-                                   CallbackInfoReturnable<Boolean> cir) {
+    private static void checkBlock(BlockState state, BlockView world, BlockPos pos, Direction side, BlockPos blockPos, CallbackInfoReturnable<Boolean> cir) {
         if (ModuleRegistry.search(XRAY.class).isEnabled()) {
             boolean isIncluded = false;
             for (Block b : CConf.xrayBlocks) {
-                if (state.getBlock().is(b))
+                if (state.getBlock() == (b))
                     isIncluded = true;
             }
             cir.setReturnValue(isIncluded);
@@ -34,7 +33,7 @@ public abstract class BlockMixin {
         if (ModuleRegistry.search(XRAY.class).isEnabled()) {
             boolean isIncluded = false;
             for (Block b : CConf.xrayBlocks) {
-                if (state.getBlock().is(b))
+                if (state.getBlock() == (b))
                     isIncluded = true;
             }
             cir.setReturnValue(!isIncluded);

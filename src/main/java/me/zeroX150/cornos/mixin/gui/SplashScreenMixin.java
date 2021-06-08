@@ -16,16 +16,10 @@ public class SplashScreenMixin {
     @Mutable
     @Shadow
     @Final
-    private static int BRAND_RGB;
-
-    @Mutable
-    @Shadow
-    @Final
-    private static int BRAND_ARGB;
+    private static int MOJANG_RED;
 
     @Inject(method = "init", at = @At("TAIL"))
     private static void i(MinecraftClient client, CallbackInfo ci) {
-        BRAND_RGB = BackgroundHelper.ColorMixer.getArgb(255, 0, 0, 0) & 16777215;
-        BRAND_ARGB = BackgroundHelper.ColorMixer.getArgb(255, 0, 0, 0);
+        MOJANG_RED = BackgroundHelper.ColorMixer.getArgb(255, 0, 0, 0);
     }
 }

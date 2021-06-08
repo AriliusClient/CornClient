@@ -47,13 +47,13 @@ public class Scaffold extends Module {
                 }
             }
             if (shouldPlace) {
-                int prevIndex = Cornos.minecraft.player.inventory.selectedSlot;
+                int prevIndex = Cornos.minecraft.player.getInventory().selectedSlot;
                 int isIndex = -1;
                 if (!lookForBlocks.isEnabled())
                     isIndex = prevIndex;
                 else {
                     for (int i = 0; i < 9; i++) {
-                        ItemStack currStack = Cornos.minecraft.player.inventory.getStack(i);
+                        ItemStack currStack = Cornos.minecraft.player.getInventory().getStack(i);
                         if (Block.getBlockFromItem(currStack.getItem()) != Blocks.AIR) {
                             isIndex = i;
                             break;

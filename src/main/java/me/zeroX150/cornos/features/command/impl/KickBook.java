@@ -5,8 +5,8 @@ import me.zeroX150.cornos.etc.helper.STL;
 import me.zeroX150.cornos.features.command.Command;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
 import net.minecraft.network.packet.c2s.play.BookUpdateC2SPacket;
 
 import java.nio.charset.StandardCharsets;
@@ -40,16 +40,16 @@ public class KickBook extends Command {
         STL.notifyUser("Get 4 of these in a named shulker and kill someone with it ;)");
         STL.notifyUser("Turn off chat to be immune");
         assert Cornos.minecraft.player != null;
-        int s = Cornos.minecraft.player.inventory.selectedSlot;
-        ItemStack stack = Cornos.minecraft.player.inventory.getStack(s);
+        int s = Cornos.minecraft.player.getInventory().selectedSlot;
+        ItemStack stack = Cornos.minecraft.player.getInventory().getStack(s);
         if (stack.getItem() != Items.WRITABLE_BOOK) {
             STL.notifyUser("pls hold a writable book thx");
             return;
         }
         String exploit = genBook(65533);
-        stack.putSubTag("author", StringTag.of(Cornos.minecraft.player.getGameProfile().getName()));
-        stack.putSubTag("title", StringTag.of(exploit));
-        stack.putSubTag("pages", new ListTag());
+        stack.putSubTag("author", NbtString.of(Cornos.minecraft.player.getGameProfile().getName()));
+        stack.putSubTag("title", NbtString.of(exploit));
+        stack.putSubTag("pages", new NbtList());
 
         BookUpdateC2SPacket p = new BookUpdateC2SPacket(stack, true, s);
         Objects.requireNonNull(Cornos.minecraft.getNetworkHandler()).sendPacket(p);

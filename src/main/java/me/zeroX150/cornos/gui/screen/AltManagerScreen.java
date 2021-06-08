@@ -76,9 +76,9 @@ public class AltManagerScreen extends Screen {
             assert this.client != null;
             this.client.openScreen(new AltManagerScreen());
         });
-        this.addButton(login);
-        this.addButton(saveAlt);
-        this.addButton(showpass);
+        this.addDrawableChild(login);
+        this.addDrawableChild(saveAlt);
+        this.addDrawableChild(showpass);
 
         List<List<String>> goodalts = new ArrayList<>();
         for (String s : Alts.k.value.substring(1).split(((char) 999) + "")) {
@@ -108,8 +108,8 @@ public class AltManagerScreen extends Screen {
                 this.client.openScreen(new AltManagerScreen());
             });
             offset += 25;
-            this.addButton(alt);
-            this.addButton(delete);
+            this.addDrawableChild(alt);
+            this.addDrawableChild(delete);
         }
         Alts.k.setValue("0" + String.join(((char) 999) + "", fal));
     }
@@ -138,20 +138,20 @@ public class AltManagerScreen extends Screen {
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         this.renderBackground(matrices);
-        DrawableHelper.drawCenteredString(matrices, textRenderer, "Email", width / 2, height / 2 - (20 / 2) - 45,
+        DrawableHelper.drawCenteredText(matrices, textRenderer, "Email", width / 2, height / 2 - (20 / 2) - 45,
                 0xFFFFFF);
         email.render(matrices, mouseX, mouseY, delta);
-        DrawableHelper.drawCenteredString(matrices, textRenderer, "Password", width / 2, height / 2 - (20 / 2) - 10,
+        DrawableHelper.drawCenteredText(matrices, textRenderer, "Password", width / 2, height / 2 - (20 / 2) - 10,
                 0xFFFFFF);
         passwd.render(matrices, mouseX, mouseY, delta);
-        DrawableHelper.drawCenteredString(matrices, textRenderer, "Or email:password", width / 2,
+        DrawableHelper.drawCenteredText(matrices, textRenderer, "Or email:password", width / 2,
                 height / 2 - (20 / 2) + 25, 0xFFFFFF);
         emailpasswd.render(matrices, mouseX, mouseY, delta);
         if (hasSavedAlts)
-            DrawableHelper.drawCenteredString(matrices, textRenderer, "Saved alts", width - 81, 2, 0xFFFFFF);
+            DrawableHelper.drawCenteredText(matrices, textRenderer, "Saved alts", width - 81, 2, 0xFFFFFF);
         if (!errormsg.isEmpty()) {
             textRenderer.draw(matrices, errormsg, 1, 1, 0xFFFFFF);
-            // DrawableHelper.drawCenteredString(matrices,textRenderer,errormsg,width/2,height/2+30,0xFFFFFF);
+            // DrawableHelper.drawCenteredText(matrices,textRenderer,errormsg,width/2,height/2+30,0xFFFFFF);
         }
         super.render(matrices, mouseX, mouseY, delta);
     }

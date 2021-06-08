@@ -57,7 +57,7 @@ public class NoFall extends Module {
             switch (mode.value) {
                 case "packet":
                     Objects.requireNonNull(Cornos.minecraft.getNetworkHandler())
-                            .sendPacket(new PlayerMoveC2SPacket(true));
+                            .sendPacket(new PlayerMoveC2SPacket.OnGroundOnly(true));
                     break;
                 case "breakFall":
                     Cornos.minecraft.player.setVelocity(0, 0.1, 0);

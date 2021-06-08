@@ -7,7 +7,7 @@ import me.zeroX150.cornos.etc.helper.STL;
 import me.zeroX150.cornos.etc.render.Notification;
 import me.zeroX150.cornos.features.module.Module;
 import me.zeroX150.cornos.features.module.ModuleType;
-import net.minecraft.client.options.GameOptions;
+import net.minecraft.client.option.GameOptions;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.packet.c2s.play.VehicleMoveC2SPacket;
 import net.minecraft.util.math.Vec3d;
@@ -65,7 +65,7 @@ public class BoatFly extends Module {
                 break;
             case "velocity":
             case "static":
-                float y = Cornos.minecraft.player.yaw;
+                float y = Cornos.minecraft.player.getYaw();
                 int mx = 0, my = 0, mz = 0;
                 if (go.keyJump.isPressed())
                     my++;
@@ -98,7 +98,7 @@ public class BoatFly extends Module {
                 }
                 break;
         }
-        vehicle.yaw = Cornos.minecraft.player.yaw;
+        vehicle.setYaw(Cornos.minecraft.player.getYaw());
         // vehicle.pitch = Cornos.minecraft.player.pitch;
         VehicleMoveC2SPacket p = new VehicleMoveC2SPacket(vehicle);
         Objects.requireNonNull(Cornos.minecraft.getNetworkHandler()).sendPacket(p);

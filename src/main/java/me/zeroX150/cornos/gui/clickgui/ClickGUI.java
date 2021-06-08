@@ -33,7 +33,7 @@ public class ClickGUI extends Screen {
             });
             offsetY += 21;
 
-            addButton(cbt);
+            addDrawableChild(cbt);
         }
     }
 

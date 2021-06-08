@@ -14,6 +14,7 @@ import me.zeroX150.cornos.features.module.impl.external.TabGUI;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -97,9 +98,9 @@ public class InGameHudMixin {
         }
     }
 
-    @Inject(method = "renderPumpkinOverlay", at = @At("HEAD"), cancellable = true)
-    public void renderPumpkinOverlayReplacement(CallbackInfo ci) {
-        if (NoRender.pumpkin.isEnabled() && ModuleRegistry.search(NoRender.class).isEnabled()) {
+    @Inject(method = "renderOverlay", at = @At("HEAD"), cancellable = true)
+    public void renderPumpkinOverlayReplacement(Identifier texture, float opacity, CallbackInfo ci) {
+        if (NoRender.pumpkin.isEnabled() && ModuleRegistry.search(NoRender.class).isEnabled() && texture.getPath().contains("pumpkin")) {
             ci.cancel();
             MatrixStack defaultM = new MatrixStack();
             int w2d = Cornos.minecraft.getWindow().getScaledWidth() / 2;

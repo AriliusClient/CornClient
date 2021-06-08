@@ -22,7 +22,6 @@ public class Raycast {
     Vec3d e;
     Vec3d diff;
     double dist;
-    List<RenderableLine> lastVisualization = new ArrayList<>();
 
     public Raycast(Vec3d start, Vec3d end) {
         s = start;
@@ -31,7 +30,7 @@ public class Raycast {
         dist = s.distanceTo(e);
     }
 
-    public boolean passesThroughBlock(int laziness, boolean visualize) {
+    public boolean passesThroughBlock(int laziness) {
         Vec3d current = s;
         double lastDist = Double.MAX_VALUE;
         boolean passes = false;
@@ -43,7 +42,7 @@ public class Raycast {
             current = current.add(perX, perY, perZ);
             BlockPos bp = new BlockPos(current.x, current.y, current.z);
             assert Cornos.minecraft.world != null;
-            if (!Cornos.minecraft.world.getBlockState(bp).getBlock().is(Blocks.AIR)) {
+            if (Cornos.minecraft.world.getBlockState(bp).getBlock() != (Blocks.AIR)) {
                 passes = true;
                 break;
             }

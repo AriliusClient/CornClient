@@ -6,7 +6,7 @@ import me.zeroX150.cornos.etc.config.MConfNum;
 import me.zeroX150.cornos.features.module.Module;
 import me.zeroX150.cornos.features.module.ModuleRegistry;
 import me.zeroX150.cornos.features.module.ModuleType;
-import net.minecraft.client.options.Perspective;
+import net.minecraft.client.option.Perspective;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.ItemRenderer;
@@ -72,8 +72,7 @@ public class Animations extends Module {
 
         }
         if (!stack.isEmpty()) {
-            itemRenderer.renderItem(entity, stack, renderMode, leftHanded, matrices, vertexConsumers, entity.world,
-                    light, OverlayTexture.DEFAULT_UV);
+            itemRenderer.renderItem(entity, stack, renderMode, leftHanded, matrices, vertexConsumers, entity.world, light, OverlayTexture.DEFAULT_UV, entity.getId() + renderMode.ordinal());
         }
         ci.cancel();
     }

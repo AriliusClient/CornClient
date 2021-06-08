@@ -8,8 +8,8 @@ import me.zeroX150.cornos.etc.event.arg.PacketEvent;
 import me.zeroX150.cornos.etc.helper.Renderer;
 import me.zeroX150.cornos.features.module.Module;
 import me.zeroX150.cornos.features.module.ModuleType;
-import net.minecraft.client.options.GameOptions;
-import net.minecraft.client.options.Perspective;
+import net.minecraft.client.option.GameOptions;
+import net.minecraft.client.option.Perspective;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
@@ -60,14 +60,14 @@ public class Freecam extends Module {
         // save cache
         assert Cornos.minecraft.player != null;
         startloc = Cornos.minecraft.player.getPos();
-        pitch = Cornos.minecraft.player.pitch;
-        yaw = Cornos.minecraft.player.yaw;
+        pitch = Cornos.minecraft.player.getPitch();
+        yaw = Cornos.minecraft.player.getYaw();
         // make player entity that shows where we left off when we started the module
         assert Cornos.minecraft.world != null;
 
         // make us fly & disable vanilla flight
-        Cornos.minecraft.player.abilities.flying = true;
-        Cornos.minecraft.player.abilities.setFlySpeed(0);
+        Cornos.minecraft.player.getAbilities().flying = true;
+        Cornos.minecraft.player.getAbilities().setFlySpeed(0);
         super.onEnable();
     }
 
@@ -81,8 +81,8 @@ public class Freecam extends Module {
         startloc = null;
         yaw = pitch = 0;
         // disable flight & re-enable vanilla flight
-        Cornos.minecraft.player.abilities.flying = false;
-        Cornos.minecraft.player.abilities.setFlySpeed(0.05f);
+        Cornos.minecraft.player.getAbilities().flying = false;
+        Cornos.minecraft.player.getAbilities().setFlySpeed(0.05f);
         // disable noclip
         Cornos.minecraft.player.noClip = false;
         Objects.requireNonNull(Cornos.minecraft.getCameraEntity()).noClip = false;
@@ -95,8 +95,8 @@ public class Freecam extends Module {
     public void onExecute() {
         // set us flying & keep vanilla flight at a 0
         assert Cornos.minecraft.player != null;
-        Cornos.minecraft.player.abilities.flying = true;
-        Cornos.minecraft.player.abilities.setFlySpeed(0);
+        Cornos.minecraft.player.getAbilities().flying = true;
+        Cornos.minecraft.player.getAbilities().setFlySpeed(0);
         // set ground to false and fall distance to 0
         Cornos.minecraft.player.setOnGround(false);
         Cornos.minecraft.player.fallDistance = 0;
@@ -109,7 +109,7 @@ public class Freecam extends Module {
 
         GameOptions go = Cornos.minecraft.options;
         float speed = (float) this.speed.getValue() / 5;
-        float y = Cornos.minecraft.player.yaw;
+        float y = Cornos.minecraft.player.getYaw();
         int mx = 0, my = 0, mz = 0;
         if (go.keyJump.isPressed())
             my++;

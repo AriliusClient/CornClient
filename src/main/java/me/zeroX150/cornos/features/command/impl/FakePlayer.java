@@ -32,14 +32,14 @@ public class FakePlayer extends Command {
             Vec3d gotoPos = trackedPositions.get(0);
             List<OtherClientPlayerEntity> newPl = new ArrayList<>();
             for (OtherClientPlayerEntity p : fakePlayers) {
-                if (!p.removed)
+                if (!p.isRemoved())
                     newPl.add(p);
             }
             for (OtherClientPlayerEntity p : newPl) {
                 p.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, Cornos.minecraft.player.getPos());
                 p.updatePosition(gotoPos.x, gotoPos.y, gotoPos.z);
                 // p.teleport(gotoPos.x,gotoPos.y,gotoPos.z);
-                p.travel(new Vec3d(1, 0, 0).rotateY(MathHelper.wrapDegrees(p.yaw)));
+                p.travel(new Vec3d(1, 0, 0).rotateY(MathHelper.wrapDegrees(p.getYaw())));
             }
             fakePlayers.clear();
             fakePlayers.addAll(newPl);

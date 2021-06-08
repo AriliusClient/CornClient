@@ -59,7 +59,7 @@ public class HudElements extends DrawableHelper {
             assert Cornos.minecraft.player != null;
             InventoryScreen.drawEntity((int) (Cornos.minecraft.getWindow().getScaledWidth() / 1.5),
                     Cornos.minecraft.getWindow().getScaledHeight() - 1, 25, (float) (yaw),
-                    Cornos.minecraft.player.pitch, Cornos.minecraft.player);
+                    Cornos.minecraft.player.getPitch(), Cornos.minecraft.player);
         }
         if (((MConfToggleable) hud.mconf.getByName("speedBPS")).isEnabled()) {
             double lrx = Cornos.minecraft.player.lastRenderX;
@@ -239,7 +239,7 @@ public class HudElements extends DrawableHelper {
             int formatted;
             formatted = (int) Math.floor((System.currentTimeMillis() - lastRecv) / 1000f);
 
-            DrawableHelper.drawCenteredString(matrices, textRenderer, "Server doesn't respond! (" + formatted + " s)",
+            DrawableHelper.drawCenteredText(matrices, textRenderer, "Server doesn't respond! (" + formatted + " s)",
                     w / 2, 40, new Color(255, 50, 50).getRGB());
         }
     }

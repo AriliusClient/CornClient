@@ -10,10 +10,7 @@ import me.zeroX150.cornos.features.module.Module;
 import me.zeroX150.cornos.features.module.ModuleRegistry;
 import me.zeroX150.cornos.features.module.ModuleType;
 import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.BufferRenderer;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix4f;
@@ -54,20 +51,18 @@ public class TabGUI extends DrawableHelper {
 
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.getBuffer();
-        GlStateManager.enableBlend();
-        GlStateManager.disableTexture();
-        GlStateManager.blendFunc(770, 771);
-        buffer.begin(7, VertexFormats.POSITION_COLOR);
+        GlStateManager._enableBlend();
+        GlStateManager._disableTexture();
+        GlStateManager._blendFunc(770, 771);
+        buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
         buffer.vertex(matrix4f, left, bottom, 0.0F).color(f, f1, f2, f3).next();
         buffer.vertex(matrix4f, right, bottom, 0.0F).color(f, f1, f2, f3).next();
         buffer.vertex(matrix4f, right, top, 0.0F).color(f, f1, f2, f3).next();
         buffer.vertex(matrix4f, left, top, 0.0F).color(f, f1, f2, f3).next();
         buffer.end();
-        RenderSystem.enableAlphaTest();
         BufferRenderer.draw(buffer);
-        RenderSystem.disableAlphaTest();
-        GlStateManager.enableTexture();
-        GlStateManager.disableBlend();
+        GlStateManager._enableTexture();
+        GlStateManager._disableBlend();
     }
 
     public void render(MatrixStack matrices, float delta) {

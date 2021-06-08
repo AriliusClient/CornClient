@@ -39,9 +39,9 @@ public class Teleport extends Command {
         double zd = Double.parseDouble(z);
         Vec3d np = new Vec3d(xd, yd, zd);
         Vec3d ppos = Cornos.minecraft.player.getPos();
-        PlayerMoveC2SPacket p = new PlayerMoveC2SPacket.PositionOnly(ppos.x, ppos.y + 1850, ppos.z,
+        PlayerMoveC2SPacket p = new PlayerMoveC2SPacket.PositionAndOnGround(ppos.x, ppos.y + 1850, ppos.z,
                 Cornos.minecraft.player.isOnGround());
-        PlayerMoveC2SPacket p1 = new PlayerMoveC2SPacket.PositionOnly(np.x, np.y, np.z,
+        PlayerMoveC2SPacket p1 = new PlayerMoveC2SPacket.PositionAndOnGround(np.x, np.y, np.z,
                 Cornos.minecraft.player.isOnGround());
         Cornos.minecraft.getNetworkHandler().sendPacket(p1);
         Cornos.minecraft.getNetworkHandler().sendPacket(new TeleportConfirmC2SPacket(++Flight.tpid));

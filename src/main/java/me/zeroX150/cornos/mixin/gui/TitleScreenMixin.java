@@ -24,7 +24,7 @@ public class TitleScreenMixin extends Screen {
             cbi.cancel();
             return;
         }
-        this.addButton(new CustomButtonWidget(width - 121, 1, 120, 20, Text.of("Return to pog menu"), () -> {
+        this.addDrawableChild(new CustomButtonWidget(width - 121, 1, 120, 20, Text.of("Return to pog menu"), () -> {
             Cornos.config.mconf.getByName("homescreen").setValue("client");
             Cornos.minecraft.openScreen(this);
         }));

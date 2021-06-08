@@ -14,7 +14,7 @@ import net.minecraft.util.math.Vec3d;
 import java.util.Objects;
 
 public class Criticals extends Module {
-    MConfMultiOption mode = new MConfMultiOption("mode", "packet", new String[]{"packet", "tphop", "visual"}, "The mode");
+    MConfMultiOption mode = new MConfMultiOption("mode", "packet", new String[]{"packet", "tphop"}, "The mode");
 
     public Criticals() {
         super("Criticals", "more damage", ModuleType.COMBAT);
@@ -28,13 +28,13 @@ public class Criticals extends Module {
                 Vec3d pos = Cornos.minecraft.player.getPos();
                 switch (mode.value) {
                     case "packet":
-                        PlayerMoveC2SPacket.PositionOnly mp = new PlayerMoveC2SPacket.PositionOnly(pos.x, pos.y + 0.2,
+                        PlayerMoveC2SPacket.PositionAndOnGround mp = new PlayerMoveC2SPacket.PositionAndOnGround(pos.x, pos.y + 0.2,
                                 pos.z, true);
-                        PlayerMoveC2SPacket.PositionOnly mp1 = new PlayerMoveC2SPacket.PositionOnly(pos.x, pos.y, pos.z,
+                        PlayerMoveC2SPacket.PositionAndOnGround mp1 = new PlayerMoveC2SPacket.PositionAndOnGround(pos.x, pos.y, pos.z,
                                 false);
-                        PlayerMoveC2SPacket.PositionOnly mp2 = new PlayerMoveC2SPacket.PositionOnly(pos.x,
+                        PlayerMoveC2SPacket.PositionAndOnGround mp2 = new PlayerMoveC2SPacket.PositionAndOnGround(pos.x,
                                 pos.y + 0.000011, pos.z, false);
-                        PlayerMoveC2SPacket.PositionOnly mp3 = new PlayerMoveC2SPacket.PositionOnly(pos.x, pos.y, pos.z,
+                        PlayerMoveC2SPacket.PositionAndOnGround mp3 = new PlayerMoveC2SPacket.PositionAndOnGround(pos.x, pos.y, pos.z,
                                 false);
                         Objects.requireNonNull(Cornos.minecraft.getNetworkHandler()).sendPacket(mp);
                         Cornos.minecraft.getNetworkHandler().sendPacket(mp1);
@@ -42,15 +42,14 @@ public class Criticals extends Module {
                         Cornos.minecraft.getNetworkHandler().sendPacket(mp3);
                         break;
                     case "tphop":
-                        PlayerMoveC2SPacket.PositionOnly mp4 = new PlayerMoveC2SPacket.PositionOnly(pos.x, pos.y + 0.02,
+                        PlayerMoveC2SPacket.PositionAndOnGround mp4 = new PlayerMoveC2SPacket.PositionAndOnGround(pos.x, pos.y + 0.02,
                                 pos.z, false);
-                        PlayerMoveC2SPacket.PositionOnly mp5 = new PlayerMoveC2SPacket.PositionOnly(pos.x, pos.y + 0.01,
+                        PlayerMoveC2SPacket.PositionAndOnGround mp5 = new PlayerMoveC2SPacket.PositionAndOnGround(pos.x, pos.y + 0.01,
                                 pos.z, false);
                         Objects.requireNonNull(Cornos.minecraft.getNetworkHandler()).sendPacket(mp4);
                         Cornos.minecraft.getNetworkHandler().sendPacket(mp5);
                         break;
                 }
-                Cornos.minecraft.player.addCritParticles(p.getEntity(Cornos.minecraft.world));
             }
         });
     }

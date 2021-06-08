@@ -23,7 +23,7 @@ public class AutoTool extends Module {
             BlockPos b = r.getBlockPos();
             assert Cornos.minecraft.player != null;
             BlockState bstate = Cornos.minecraft.player.world.getBlockState(b);
-            PlayerInventory pinv = Cornos.minecraft.player.inventory;
+            PlayerInventory pinv = Cornos.minecraft.player.getInventory();
             float best = 1f;
             int bs1 = -1;
             for (int i = 0; i < 9; i++) {

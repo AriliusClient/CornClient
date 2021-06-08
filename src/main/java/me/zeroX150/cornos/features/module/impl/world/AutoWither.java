@@ -71,7 +71,7 @@ public class AutoWither extends Module {
             int witherSkullIndex = -1;
             for (int i = 0; i < 8; i++) {
                 assert Cornos.minecraft.player != null;
-                ItemStack current = Cornos.minecraft.player.inventory.getStack(i);
+                ItemStack current = Cornos.minecraft.player.getInventory().getStack(i);
                 if (current.isEmpty())
                     continue;
                 if (current.getItem().equals(Items.SOUL_SAND))
@@ -80,12 +80,12 @@ public class AutoWither extends Module {
                     witherSkullIndex = i;
             }
             if (soulSandIndex != -1 && witherSkullIndex != -1) {
-                ItemStack sand = Cornos.minecraft.player.inventory.getStack(soulSandIndex);
-                ItemStack skull = Cornos.minecraft.player.inventory.getStack(witherSkullIndex);
+                ItemStack sand = Cornos.minecraft.player.getInventory().getStack(soulSandIndex);
+                ItemStack skull = Cornos.minecraft.player.getInventory().getStack(witherSkullIndex);
                 new Thread(() -> {
                     Vec3d[] sandCopy = sandPlacements;
                     Vec3d[] skullCopy = skullPlacements;
-                    Cornos.minecraft.player.inventory.addPickBlock(sand);
+                    Cornos.minecraft.player.getInventory().addPickBlock(sand);
                     STL.sleep(70);
                     for (Vec3d current : sandCopy) {
                         BlockHitResult bhr = new BlockHitResult(new Vec3d(.5, .5, .5), Direction.DOWN,
@@ -94,7 +94,7 @@ public class AutoWither extends Module {
                         Objects.requireNonNull(Cornos.minecraft.getNetworkHandler()).sendPacket(p);
                     }
                     STL.sleep(70);
-                    Cornos.minecraft.player.inventory.addPickBlock(skull);
+                    Cornos.minecraft.player.getInventory().addPickBlock(skull);
                     STL.sleep(70);
                     for (Vec3d current : skullCopy) {
                         BlockHitResult bhr = new BlockHitResult(new Vec3d(.5, .5, .5), Direction.DOWN,

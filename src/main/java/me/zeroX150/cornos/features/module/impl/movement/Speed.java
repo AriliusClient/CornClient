@@ -13,7 +13,7 @@ import me.zeroX150.cornos.etc.config.MConfMultiOption;
 import me.zeroX150.cornos.etc.config.MConfNum;
 import me.zeroX150.cornos.features.module.Module;
 import me.zeroX150.cornos.features.module.ModuleType;
-import net.minecraft.client.options.GameOptions;
+import net.minecraft.client.option.GameOptions;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 
