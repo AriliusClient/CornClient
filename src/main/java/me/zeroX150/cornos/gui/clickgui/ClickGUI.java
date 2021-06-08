@@ -32,6 +32,7 @@ public class ClickGUI extends Screen {
                 handleModuleChange(value);
             });
             offsetY += 21;
+
             addButton(cbt);
         }
     }
