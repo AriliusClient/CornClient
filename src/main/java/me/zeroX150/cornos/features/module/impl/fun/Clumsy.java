@@ -18,7 +18,7 @@ public class Clumsy extends Module {
     int i = 1;
     MConfMultiOption name = new MConfMultiOption("name", "randomEN",
             new String[]{"randomBin", "randomAscii", "randomEN", "none"}, "Mode to name blocks after");
-    String[] enNames = new String[]{"Cornos on top", "suck my dick", "this item is worthless", "fucking retard",
+    String[] enNames = new String[]{"Ashley~#6350 is hot", "suck my dick", "this item is worthless", "fucking retard",
             "i am dumb as fuck", "man.", "69420", "yep.", "just a random item", "sex is nice", "L", "retard moment"};
     int dropped = 0;
 
